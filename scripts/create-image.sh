@@ -25,7 +25,7 @@ fi
 echo Enter size in GB:
 read SIZE
 
-dd if=/dev/zero of=$IMAGE_PATH bs=1G count=$SIZE
+dd if=/dev/zero of=$IMAGE_PATH bs=1G count=$SIZE status=progress
 
 cryptsetup luksFormat --type luks2 -q --verify-passphrase $IMAGE_PATH
 
