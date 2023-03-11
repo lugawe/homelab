@@ -12,7 +12,7 @@ if [ ! -f $IMAGE_FILE ]; then
     exit 1
 fi
 
-if [ ! -d $CONTAINER_DIR ]; then
+if [ ! -d $IMAGE_MOUNT_DIR ]; then
     echo Dir does not exist
     exit 1
 fi
