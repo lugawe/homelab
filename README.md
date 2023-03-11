@@ -12,6 +12,6 @@ Use at your own risk.
 
 ## Scripts
 
-create-image.sh: Create a luks2 encrypted image file and mount it\
-mount-image.sh: Mount and unlock an existing image\
-umount-image.sh: Umount and close
+image-create.sh: Create a luks2 encrypted image file and mount it\
+image-mount.sh: Mount and unlock an existing image\
+image-umount.sh: Umount and close
