@@ -1,23 +1,26 @@
 #!/bin/bash
 set -e
 
-echo Enter name:
-read IMAGE_NAME
+IMAGE_NAME=$1
+
+if [ -z "$IMAGE_NAME" ]; then
+    read -p "Enter name: " IMAGE_NAME
+fi
 
 IMAGE_FILE=~/image/$IMAGE_NAME.img
 IMAGE_MOUNT_DIR=~/image/$IMAGE_NAME
 
 if [ ! -f $IMAGE_FILE ]; then
-    echo Image does not exist
+    echo "Image $IMAGE_NAME does not exist"
     exit 1
 fi
 
 if [ ! -d $IMAGE_MOUNT_DIR ]; then
-    echo Dir does not exist
+    echo "Mount dir $IMAGE_MOUNT_DIR does not exist"
     exit 1
 fi
 
 sudo cryptsetup luksOpen $IMAGE_FILE $IMAGE_NAME
 sudo mount /dev/mapper/$IMAGE_NAME $IMAGE_MOUNT_DIR
 
-echo Done.
+echo "Done."
