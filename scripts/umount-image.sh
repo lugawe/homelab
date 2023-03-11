@@ -3,9 +3,9 @@
 echo Enter name:
 read IMAGE_NAME
 
-CONTAINER_DIR=~/container/$IMAGE_NAME
+IMAGE_MOUNT_DIR=~/image/$IMAGE_NAME
 
-sudo umount $CONTAINER_DIR
+sudo umount $IMAGE_MOUNT_DIR
 sudo cryptsetup close $IMAGE_NAME
 
 echo Done.
