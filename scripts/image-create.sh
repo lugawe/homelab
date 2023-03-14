@@ -3,8 +3,11 @@ set -e
 
 mkdir -p ~/image
 
-echo "Enter name:"
-read IMAGE_NAME
+IMAGE_NAME=$1
+
+if [ -z "$IMAGE_NAME" ]; then
+    read -p "Enter name: " IMAGE_NAME
+fi
 
 IMAGE_FILE=~/image/$IMAGE_NAME.img
 IMAGE_MOUNT_DIR=~/image/$IMAGE_NAME
@@ -21,8 +24,7 @@ else
     mkdir $IMAGE_MOUNT_DIR
 fi
 
-echo "Enter size in GB:"
-read SIZE
+read -p "Enter size in GB: " SIZE
 
 dd if=/dev/zero of=$IMAGE_FILE bs=1G count=$SIZE status=progress
 
