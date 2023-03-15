@@ -4,7 +4,7 @@ set -e
 node_nr=$1
 
 if [ -z "$node_nr" ]; then
-    read -p "Enter node number: " node_nr
+    read -p "Enter node number (1-5): " node_nr
 fi
 
 if ! [[ $node_nr =~ ^[1-5]$ ]]; then
