@@ -32,6 +32,7 @@ lxc launch ubuntu:22.04 $node_name --storage image-server-pool
 lxc exec $node_name -- sh -c "apt update && apt upgrade -y"
 lxc exec $node_name -- sh -c "adduser --disabled-password --gecos '' $node_name && adduser $node_name sudo && echo '$node_name:$new_passwd' | chpasswd"
 lxc exec $node_name -- sh -c "sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config"
+lxc exec $node_name -- sh -c "usermod -s /usr/sbin/nologin root && usermod -s /usr/sbin/nologin ubuntu"
 
 lxc config set $node_name security.nesting true
 lxc config device add $node_name $device_name proxy listen=tcp:0.0.0.0:$host_port connect=tcp:0.0.0.0:22
