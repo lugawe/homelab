@@ -8,7 +8,7 @@ Steps to reproduce my homelab stuff.
 
 Use at your own risk.
 
-## Scripts
+## Image scripts
 
 The following scripts store the encrypted data in <b>~/image</b>.
 
@@ -18,12 +18,50 @@ image-mount.sh: Open and mount
 
 image-umount.sh: Unmount and close
 
-## Create and manage containers
+## Create and manage containers / nodes
 
 ### Setup lxc/lxd
 
-```shell script
+```shell
 sudo lxd init
 image-create.sh server
 lxc storage create image-server-pool dir source=~/image/server
 ```
+
+### Create nodes
+
+```shell
+node-create.sh
+```
+
+### node1 - node3
+
+In node1, node2 and node3 is docker and portainer installed.
+
+Expose portainer web ui ports:
+
+```shell
+lxc config device add node1 portainer19443 proxy listen=tcp:0.0.0.0:19443 connect=tcp:0.0.0.0:9443
+lxc config device add node2 portainer29443 proxy listen=tcp:0.0.0.0:29443 connect=tcp:0.0.0.0:9443
+lxc config device add node3 portainer39443 proxy listen=tcp:0.0.0.0:39443 connect=tcp:0.0.0.0:9443
+```
+
+### node1
+
+Container contains nginx proxy manager and authelia.
+
+### node2
+
+Container contains nextcloud.
+
+### node3
+
+Container contains jellyfin.
+
+### node4
+
+Container contains development stuff.
+
+### node5
+
+Container contains virtual machines.
