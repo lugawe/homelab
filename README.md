@@ -20,12 +20,18 @@ image-umount.sh: Unmount and close
 
 ## Create and manage containers / nodes
 
-### Setup lxc/lxd
+### Setup lxc/lxd and images
 
 ```shell
+# lxc/lxd init
 sudo lxd init
+
+# server image (~40GB)
 image-create.sh server
 lxc storage create image-server-pool dir source=~/image/server
+
+# docs image (~256GB)
+image-create.sh docs
 ```
 
 ### Create nodes
