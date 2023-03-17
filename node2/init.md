@@ -11,6 +11,7 @@ Before docker-compose:
 lxc config device add node2 docs disk source=~/image/docs path=/home/node2/docs
 
 # create nextcloud dirs
+mkdir -p -m 777 ~/image/docs/nextcloud
 mkdir -p -m 777 ~/image/docs/nextcloud/config
 mkdir -p -m 777 ~/image/docs/nextcloud/data
 
