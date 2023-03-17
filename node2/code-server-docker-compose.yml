@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+    code-server:
+        image: lscr.io/linuxserver/code-server:latest
+        container_name: code-server
+        restart: unless-stopped
+        volumes:
+            - type: bind
+              source: /home/node2/docs/code-server/config
+              target: /config
+        ports:
+            - 8443:8443
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Berlin
