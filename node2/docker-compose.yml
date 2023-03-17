@@ -1,0 +1,19 @@
+version: "3"
+services:
+    nextcloud:
+        image: lscr.io/linuxserver/nextcloud:latest
+        container_name: nextcloud
+        restart: unless-stopped
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Berlin
+        volumes:
+            - type: bind
+              source: /home/node2/docs/nextcloud/config
+              target: /config
+            - type: bind
+              source: /home/node2/docs/nextcloud/data
+              target: /data
+        ports:
+            - 443:443
