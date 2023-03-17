@@ -11,8 +11,8 @@ services:
             - ./data/nginx/snippets:/snippets:ro
         ports:
             - 80:80
-            - 443:443
             - 81:81
+            - 443:443
         environment:
             - TZ=Europe/Berlin
 
