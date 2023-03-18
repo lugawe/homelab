@@ -12,6 +12,7 @@ services:
         ports:
             - 8443:8443
         environment:
+            - SUDO_PASSWORD=secret
             - PUID=1000
             - PGID=1000
             - TZ=Europe/Berlin
