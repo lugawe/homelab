@@ -15,7 +15,6 @@ server:
         key: ""
         certificate: ""
         client_certificates: []
-
     headers:
         csp_template: ""
 
@@ -25,20 +24,20 @@ authentication_backend:
         path: /config/users_database.yml
         password:
             algorithm: argon2id
-            iterations: 1
+            iterations: 4
             key_length: 32
             salt_length: 16
-            memory: 1024
+            memory: 2048
             parallelism: 8
     password_reset:
-        disable: false
+        disable: true
         custom_url: ""
 
 access_control:
     default_policy: deny
     rules:
         - domain:
-              - "authelia domain"
+              - "auth.domain"
           policy: bypass
         - domain: "domain"
           policy: one_factor
