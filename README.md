@@ -54,7 +54,7 @@ lxc config device add node3 portainer39443 proxy listen=tcp:0.0.0.0:39443 connec
 
 ### node1
 
-Container contains nginx-proxy-manager and authelia.
+Container contains nginx-proxy-manager, authelia and heimdall.
 
 ### node2
 
