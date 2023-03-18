@@ -2,21 +2,15 @@ theme: auto
 
 jwt_secret: secret
 
-default_redirection_url: domain
+default_redirection_url: auth.domain
 
-default_2fa_method: ""
+default_2fa_method: totp
 
 server:
     host: 0.0.0.0
     port: 9091
     path: ""
     disable_healthcheck: false
-    tls:
-        key: ""
-        certificate: ""
-        client_certificates: []
-    headers:
-        csp_template: ""
 
 authentication_backend:
     refresh_interval: 5m
@@ -31,16 +25,6 @@ authentication_backend:
             parallelism: 8
     password_reset:
         disable: true
-        custom_url: ""
-
-access_control:
-    default_policy: deny
-    rules:
-        - domain:
-              - "auth.domain"
-          policy: bypass
-        - domain: "domain"
-          policy: one_factor
 
 session:
     name: authelia_session
@@ -49,9 +33,28 @@ session:
     inactivity: 300
     domain: domain
 
+totp:
+    disable: false
+    issuer: domain
+    algorithm: sha1
+    digits: 6
+    period: 30
+    skew: 1
+    secret_size: 32
+
+access_control:
+    default_policy: deny
+    rules:
+        - domain: auth.domain
+          policy: bypass
+        - domain: nextcloud.domain
+          policy: two_factor
+        - domain: code.domain
+          policy: two_factor
+
 regulation:
     max_retries: 3
-    find_time: 10m
+    find_time: 5m
     ban_time: 12h
 
 storage:
@@ -62,7 +65,7 @@ storage:
 notifier:
     disable_startup_check: false
     filesystem:
-        filename: /config/notification.txt
+        filename: /config/notification
 
 log:
     level: info
