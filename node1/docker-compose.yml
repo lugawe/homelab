@@ -10,9 +10,9 @@ services:
             - ./data/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
             - ./data/nginx-proxy-manager/snippets:/snippets:ro
         ports:
-            - 1080:80
-            - 1081:81
-            - 1443:443
+            - 80:80
+            - 81:81
+            - 443:443
         environment:
             - TZ=Europe/Berlin
 
@@ -23,7 +23,7 @@ services:
         volumes:
             - ./data/authelia/config:/config
         ports:
-            - 1091:9091
+            - 9091:9091
         environment:
             - TZ=Europe/Berlin
 
@@ -34,8 +34,8 @@ services:
         volumes:
             - ./data/heimdall/config:/config
         ports:
-            - 80:80
-            - 443:443
+            - 1080:80
+            - 1443:443
         environment:
             - PUID=1000
             - PGID=1000
