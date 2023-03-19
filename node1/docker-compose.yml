@@ -34,7 +34,6 @@ services:
         volumes:
             - ./data/heimdall/config:/config
         ports:
-            - 1080:80
             - 1443:443
         environment:
             - PUID=1000
