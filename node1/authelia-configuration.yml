@@ -9,7 +9,6 @@ default_2fa_method: totp
 server:
     host: 0.0.0.0
     port: 9091
-    path: ""
     disable_healthcheck: false
 
 authentication_backend:
@@ -47,6 +46,8 @@ access_control:
     rules:
         - domain: auth.domain
           policy: bypass
+        - domain: heimdall.domain
+          policy: one_factor
         - domain: nextcloud.domain
           policy: two_factor
         - domain: code.domain
@@ -55,7 +56,7 @@ access_control:
 regulation:
     max_retries: 3
     find_time: 5m
-    ban_time: 12h
+    ban_time: 24h
 
 storage:
     local:
