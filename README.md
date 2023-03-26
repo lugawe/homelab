@@ -66,8 +66,4 @@ Container contains jellyfin.
 
 ### node4
 
-Container contains development stuff.
-
-### node5
-
 Container contains virtual machines.

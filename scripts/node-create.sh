@@ -4,10 +4,10 @@ set -e
 node_nr=$1
 
 if [ -z "$node_nr" ]; then
-    read -p "Enter node number (1-5): " node_nr
+    read -p "Enter node number (1-4): " node_nr
 fi
 
-if ! [[ $node_nr =~ ^[1-5]$ ]]; then
+if ! [[ $node_nr =~ ^[1-4]$ ]]; then
     echo "invalid input"
     exit 1
 fi
