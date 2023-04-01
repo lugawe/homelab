@@ -30,8 +30,8 @@ sudo lxd init
 image-create.sh server
 lxc storage create image-server-pool dir source=~/image/server
 
-# docs image (~256GB)
-image-create.sh docs
+# c_data image (~512GB)
+image-create.sh c_data
 ```
 
 ### Create nodes
