@@ -7,10 +7,10 @@ services:
         restart: unless-stopped
         volumes:
             - type: bind
-              source: /home/node2/docs/nextcloud/config
+              source: /mnt/c_data/nextcloud/config
               target: /config
             - type: bind
-              source: /home/node2/docs/nextcloud/data
+              source: /mnt/c_data/nextcloud/data
               target: /data
         ports:
             - 443:443
