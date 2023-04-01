@@ -7,8 +7,8 @@ node2 setup
 Before docker-compose:
 
 ```shell
-# link to docs image
-lxc config device add node2 docs disk source=~/image/docs path=/home/node2/docs
+# link to c_data image
+lxc config device add node2 c_data disk source=~/image/c_data path=/mnt/c_data
 
 # create nextcloud dirs
 mkdir -p -m 777 ~/image/docs/nextcloud

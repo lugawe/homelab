@@ -7,6 +7,9 @@ node3 setup
 Before docker-compose:
 
 ```shell
+# link to c_data image
+lxc config device add node3 c_data disk source=~/image/c_data path=/mnt/c_data
+
 # link to extern disk
 lxc config device add node3 extern_disk disk source=~/extern_disk path=/home/node3/disk
 
