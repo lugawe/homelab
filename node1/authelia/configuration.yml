@@ -11,6 +11,25 @@ server:
     port: 9091
     disable_healthcheck: false
 
+access_control:
+    default_policy: deny
+    rules:
+        - domain: auth.domain
+          policy: bypass
+        - domain: heimdall.domain
+          policy: one_factor
+        - domain: nextcloud.domain
+          policy: two_factor
+        - domain: code.domain
+          policy: two_factor
+
+session:
+    name: authelia_session
+    secret: secret
+    expiration: 3600
+    inactivity: 300
+    domain: domain
+
 authentication_backend:
     refresh_interval: 5m
     file:
@@ -25,13 +44,6 @@ authentication_backend:
     password_reset:
         disable: true
 
-session:
-    name: authelia_session
-    secret: secret
-    expiration: 3600
-    inactivity: 300
-    domain: domain
-
 totp:
     disable: false
     issuer: domain
@@ -41,32 +53,20 @@ totp:
     skew: 1
     secret_size: 32
 
-access_control:
-    default_policy: deny
-    rules:
-        - domain: auth.domain
-          policy: bypass
-        - domain: heimdall.domain
-          policy: one_factor
-        - domain: nextcloud.domain
-          policy: two_factor
-        - domain: code.domain
-          policy: two_factor
-
 regulation:
     max_retries: 3
     find_time: 5m
     ban_time: 24h
 
-storage:
-    local:
-        path: /config/db.sqlite3
-    encryption_key: secret
-
 notifier:
     disable_startup_check: false
     filesystem:
         filename: /config/notification
+
+storage:
+    local:
+        path: /config/db.sqlite3
+    encryption_key: secret
 
 log:
     level: info
