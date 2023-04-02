@@ -24,6 +24,9 @@ new_passwd=$(uuidgen)
 # create container
 
 lxc launch ubuntu:22.04 $node_name --storage image-server-pool
+
+sleep 3
+
 lxc exec $node_name -- sh -c "apt update && apt upgrade -y"
 lxc exec $node_name -- sh -c "adduser --disabled-password --gecos '' $node_name && adduser $node_name sudo && echo '$node_name:$new_passwd' | chpasswd"
 lxc exec $node_name -- sh -c "usermod -s /usr/sbin/nologin root && usermod -s /usr/sbin/nologin ubuntu"
