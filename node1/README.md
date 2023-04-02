@@ -4,8 +4,6 @@ node1 setup
 
 ## init
 
-Before docker-compose:
-
 ```shell
 # expose ports
 
