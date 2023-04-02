@@ -7,22 +7,22 @@ services:
         restart: unless-stopped
         volumes:
             - type: bind
-              source: /home/node3/disk/.docker/jellyfin/config
+              source: /mnt/extern_disk/.docker/jellyfin/config
               target: /config
             - type: bind
-              source: /home/node3/disk/media/movies
+              source: /mnt/extern_disk/media/movies
               target: /data/movies
               read_only: true
             - type: bind
-              source: /home/node3/disk/media/series
+              source: /mnt/extern_disk/media/series
               target: /data/series
               read_only: true
             - type: bind
-              source: /home/node3/disk/media/videos
+              source: /mnt/extern_disk/media/videos
               target: /data/videos
               read_only: true
             - type: bind
-              source: /home/node3/disk/media/other
+              source: /mnt/extern_disk/media/other
               target: /data/other
               read_only: true
         ports:
