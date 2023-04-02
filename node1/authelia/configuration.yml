@@ -20,8 +20,6 @@ access_control:
           policy: one_factor
         - domain: nextcloud.domain
           policy: two_factor
-        - domain: code.domain
-          policy: two_factor
 
 session:
     name: authelia_session
