@@ -11,4 +11,5 @@ users:
         password: $argon2id$v=19$m=2097152,t=4,p=8$GudsXHeiLl17GNlHW+xsxg$JO4kK/dO3NYw5YjHAXFPGjZaTqVn08y7CJoS3Ce5Mi4 # 1234
         displayname: luwe
         email: invalid
+        groups: []
         disabled: false
