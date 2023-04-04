@@ -1,27 +1,24 @@
 version: "3"
 
 services:
-    nginx-proxy-manager:
-        image: jc21/nginx-proxy-manager:latest
-        container_name: nginx-proxy-manager
+    traefik:
+        image: traefik:latest
+        container_name: traefik
         restart: unless-stopped
         volumes:
-            - ./data/nginx-proxy-manager/data:/data
-            - ./data/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
-            - ./data/nginx-proxy-manager/snippets:/snippets:ro
+            - traefik:/etc/traefik
+            - /var/run/docker.sock:/var/run/docker.sock:ro
         ports:
             - 80:80
-            - 81:81
             - 443:443
-        environment:
-            - TZ=Europe/Berlin
+            - 8080:8080
 
     authelia:
         image: authelia/authelia:latest
         container_name: authelia
         restart: unless-stopped
         volumes:
-            - ./data/authelia/config:/config
+            - authelia:/config
         ports:
             - 9091:9091
         environment:
@@ -32,10 +29,18 @@ services:
         container_name: heimdall
         restart: unless-stopped
         volumes:
-            - ./data/heimdall/config:/config
+            - heimdall:/config
         ports:
             - 1443:443
         environment:
             - PUID=1000
             - PGID=1000
             - TZ=Europe/Berlin
+
+volumes:
+    traefik:
+        external: false
+    authelia:
+        external: false
+    heimdall:
+        external: false
