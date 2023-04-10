@@ -21,7 +21,7 @@ if [ -d $IMAGE_MOUNT_DIR ]; then
     echo "Mount dir $IMAGE_MOUNT_DIR already exists"
     exit 1
 else
-    mkdir $IMAGE_MOUNT_DIR
+    sudo mkdir $IMAGE_MOUNT_DIR
 fi
 
 SIZE=$2
