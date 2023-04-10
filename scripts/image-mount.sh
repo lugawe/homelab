@@ -7,8 +7,8 @@ if [ -z "$IMAGE_NAME" ]; then
     read -p "Enter name: " IMAGE_NAME
 fi
 
-IMAGE_FILE=~/image/$IMAGE_NAME.img
-IMAGE_MOUNT_DIR=~/image/$IMAGE_NAME
+IMAGE_FILE=/var/lib/homelab/image/$IMAGE_NAME.img
+IMAGE_MOUNT_DIR=/mnt/$IMAGE_NAME
 
 if [ ! -f $IMAGE_FILE ]; then
     echo "Image $IMAGE_NAME does not exist"

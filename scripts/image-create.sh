@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-mkdir -p ~/image
+mkdir -p /var/lib/homelab/image
 
 IMAGE_NAME=$1
 
@@ -9,8 +9,8 @@ if [ -z "$IMAGE_NAME" ]; then
     read -p "Enter name: " IMAGE_NAME
 fi
 
-IMAGE_FILE=~/image/$IMAGE_NAME.img
-IMAGE_MOUNT_DIR=~/image/$IMAGE_NAME
+IMAGE_FILE=/var/lib/homelab/image/$IMAGE_NAME.img
+IMAGE_MOUNT_DIR=/mnt/$IMAGE_NAME
 
 if [ -f $IMAGE_FILE ]; then
     echo "Image $IMAGE_FILE already exists"
@@ -24,7 +24,11 @@ else
     mkdir $IMAGE_MOUNT_DIR
 fi
 
-read -p "Enter size in GB: " SIZE
+SIZE=$2
+
+if [ -z "$SIZE" ]; then
+    read -p "Enter size in GB: " SIZE
+fi
 
 dd if=/dev/zero of=$IMAGE_FILE bs=1G count=$SIZE status=progress
 
