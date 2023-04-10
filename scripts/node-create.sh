@@ -23,7 +23,7 @@ new_passwd=$(uuidgen)
 
 # create container
 
-lxc launch ubuntu:22.04 $node_name --storage image-server-pool
+lxc launch ubuntu:22.04 $node_name --storage nodes-pool
 
 sleep 3
 
