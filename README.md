@@ -32,10 +32,12 @@ sudo lxd init
 
 # nodes image (~40GB)
 image-create.sh nodes 40
-lxc storage create nodes-pool dir source=/mnt/nodes
 
 # c_data image (~512GB)
 image-create.sh c_data 512
+
+# create lxc/lxd storage pool
+lxc storage create nodes-pool btrfs source=/mnt/nodes
 ```
 
 ### Create nodes
