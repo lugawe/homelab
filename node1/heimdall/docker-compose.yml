@@ -17,6 +17,7 @@ services:
             - traefik.http.routers.heimdall.entrypoints=websecure
             - traefik.http.routers.heimdall.tls=true
             - traefik.http.routers.heimdall.tls.certresolver=prod
+            - traefik.http.routers.heimdall.middlewares=authelia@docker
         environment:
             - PUID=1000
             - PGID=1000
