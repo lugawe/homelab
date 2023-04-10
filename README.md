@@ -10,7 +10,7 @@ Use at your own risk.
 
 ## Image scripts
 
-The following scripts store the encrypted data in <b>~/image</b>.
+The following scripts store the encrypted data in <b>/var/lib/homelab/image</b>.
 
 image-create.sh: Create a luks2 encrypted image file and mount it
 
@@ -35,7 +35,7 @@ image-create.sh nodes 40
 lxc storage create nodes-pool dir source=/mnt/nodes
 
 # c_data image (~512GB)
-image-create.sh c_data
+image-create.sh c_data 512
 ```
 
 ### Create nodes
