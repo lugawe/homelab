@@ -2,11 +2,13 @@ version: "3"
 
 services:
     traefik:
-        image: traefik:latest
+        image: traefik:v2.9.9
         container_name: traefik
         restart: unless-stopped
+        command: --providers.docker
         volumes:
-            - traefik:/etc/traefik
+            - /etc/traefik:/etc/traefik
+            - /etc/traefik/traefik-ssl-certs:/ssl-certs
             - /var/run/docker.sock:/var/run/docker.sock:ro
         ports:
             - 80:80
@@ -18,7 +20,7 @@ services:
         container_name: authelia
         restart: unless-stopped
         volumes:
-            - authelia:/config
+            - /etc/authelia:/config
         ports:
             - 9091:9091
         environment:
@@ -29,18 +31,14 @@ services:
         container_name: heimdall
         restart: unless-stopped
         volumes:
-            - heimdall:/config
+            - /etc/heimdall:/config
         ports:
             - 1443:443
+        labels:
+            - traefik.http.routers.heimdall.rule=Host(`heimdall.domain`)
+            - traefik.http.routers.adminer.tls=true
+            - traefik.http.routers.adminer.tls.certresolver=production
         environment:
             - PUID=1000
             - PGID=1000
             - TZ=Europe/Berlin
-
-volumes:
-    traefik:
-        external: false
-    authelia:
-        external: false
-    heimdall:
-        external: false
