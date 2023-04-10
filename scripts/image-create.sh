@@ -1,44 +1,44 @@
 #!/bin/bash
 set -e
 
-TARGET_DIR=/var/lib/homelab/image
+target_dir=/var/lib/homelab/image
 
-mkdir -p $TARGET_DIR
+mkdir -p $target_dir
 
-IMAGE_NAME=$1
+image_name=$1
 
-if [ -z "$IMAGE_NAME" ]; then
-    read -p "Enter name: " IMAGE_NAME
+if [ -z "$image_name" ]; then
+    read -p "Enter name: " image_name
 fi
 
-IMAGE_FILE=$TARGET_DIR/$IMAGE_NAME.img
-IMAGE_MOUNT_DIR=/mnt/$IMAGE_NAME
+image_file=$target_dir/$image_name.img
+image_mount_dir=/mnt/$image_name
 
-if [ -f $IMAGE_FILE ]; then
-    echo "Image $IMAGE_FILE already exists"
+if [ -f $image_file ]; then
+    echo "Image $image_file already exists"
     exit 1
 fi
 
-if [ -d $IMAGE_MOUNT_DIR ]; then
-    echo "Mount dir $IMAGE_MOUNT_DIR already exists"
+if [ -d $image_mount_dir ]; then
+    echo "Mount dir $image_mount_dir already exists"
     exit 1
 else
-    sudo mkdir $IMAGE_MOUNT_DIR
+    sudo mkdir $image_mount_dir
 fi
 
-SIZE=$2
+new_size=$2
 
-if [ -z "$SIZE" ]; then
-    read -p "Enter size in GB: " SIZE
+if [ -z "$new_size" ]; then
+    read -p "Enter size in GB: " new_size
 fi
 
-dd if=/dev/zero of=$IMAGE_FILE bs=1G count=$SIZE status=progress
+dd if=/dev/zero of=$image_file bs=1G count=$new_size status=progress
 
-cryptsetup luksFormat --type luks2 -q --verify-passphrase $IMAGE_FILE
+cryptsetup luksFormat --type luks2 -q --verify-passphrase $image_file
 
-sudo cryptsetup luksOpen $IMAGE_FILE $IMAGE_NAME
-sudo mkfs.btrfs /dev/mapper/$IMAGE_NAME
-sudo mount /dev/mapper/$IMAGE_NAME $IMAGE_MOUNT_DIR
+sudo cryptsetup luksOpen $image_file $image_name
+sudo mkfs.btrfs /dev/mapper/$image_name
+sudo mount /dev/mapper/$image_name $image_mount_dir
 
-echo "$IMAGE_MOUNT_DIR"
+echo "$image_mount_dir"
 echo "Done."

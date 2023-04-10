@@ -1,19 +1,19 @@
 #!/bin/bash
 
-IMAGE_NAME=$1
+image_name=$1
 
-if [ -z "$IMAGE_NAME" ]; then
-    read -p "Enter name: " IMAGE_NAME
+if [ -z "$image_name" ]; then
+    read -p "Enter name: " image_name
 fi
 
-IMAGE_MOUNT_DIR=/mnt/$IMAGE_NAME
+image_mount_dir=/mnt/$image_name
 
-if [ ! -d $IMAGE_MOUNT_DIR ]; then
-    echo "Mount dir $IMAGE_MOUNT_DIR does not exist"
+if [ ! -d $image_mount_dir ]; then
+    echo "Mount dir $image_mount_dir does not exist"
     exit 1
 fi
 
-sudo umount $IMAGE_MOUNT_DIR
-sudo cryptsetup close $IMAGE_NAME
+sudo umount $image_mount_dir
+sudo cryptsetup close $image_name
 
 echo "Done."
