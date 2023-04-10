@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 
-mkdir -p /var/lib/homelab/image
+TARGET_DIR=/var/lib/homelab/image
+
+mkdir -p $TARGET_DIR
 
 IMAGE_NAME=$1
 
@@ -9,7 +11,7 @@ if [ -z "$IMAGE_NAME" ]; then
     read -p "Enter name: " IMAGE_NAME
 fi
 
-IMAGE_FILE=/var/lib/homelab/image/$IMAGE_NAME.img
+IMAGE_FILE=$TARGET_DIR/$IMAGE_NAME.img
 IMAGE_MOUNT_DIR=/mnt/$IMAGE_NAME
 
 if [ -f $IMAGE_FILE ]; then
