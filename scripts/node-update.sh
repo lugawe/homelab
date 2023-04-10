@@ -1,18 +1,11 @@
 #!/bin/bash
 set -e
 
-node_nr=$1
+node_name=$1
 
-if [ -z "$node_nr" ]; then
-    read -p "Enter node number (1-4): " node_nr
+if [ -z "$node_name" ]; then
+    read -p "Enter name: " node_name
 fi
-
-if ! [[ $node_nr =~ ^[1-4]$ ]]; then
-    echo "invalid input"
-    exit 1
-fi
-
-node_name="node$node_nr"
 
 lxc exec $node_name -- sh -c "sudo apt update && sudo apt upgrade -y"
 
