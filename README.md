@@ -23,6 +23,10 @@ image-umount.sh: Unmount and close
 ### Setup lxc/lxd and images
 
 ```shell
+# homelab init
+sudo mkdir -p /var/lib/homelab
+sudo chown -R $USER /var/lib/homelab
+
 # lxc/lxd init
 sudo lxd init
 
