@@ -30,9 +30,9 @@ sudo chown -R $USER /var/lib/homelab
 # lxc/lxd init
 sudo lxd init
 
-# server image (~40GB)
-image-create.sh server
-lxc storage create image-server-pool dir source=~/image/server
+# nodes image (~40GB)
+image-create.sh nodes 40
+lxc storage create nodes-pool dir source=/mnt/nodes
 
 # c_data image (~512GB)
 image-create.sh c_data
