@@ -2,43 +2,30 @@ version: "3"
 
 services:
     traefik:
-        image: traefik:v2.9.9
+        image: traefik:latest
         container_name: traefik
         restart: unless-stopped
-        command: --providers.docker
+        command:
+            - "--providers.docker"
+            - "--providers.docker.exposedbydefault=false"
+            - "--providers.docker.network=traefik_web"
+            - "--entrypoints.web.address=:80"
+            - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+            - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+            - "--entrypoints.websecure.address=:443"
+            - "--certificatesresolvers.prod.acme.storage=/letsencrypt/acme.json"
+            - "--certificatesresolvers.prod.acme.tlschallenge=true"
+            - "--certificatesresolvers.prod.acme.email=email"
         volumes:
             - /etc/traefik:/etc/traefik
-            - /etc/traefik/traefik-ssl-certs:/ssl-certs
+            - /etc/traefik/letsencrypt:/letsencrypt
             - /var/run/docker.sock:/var/run/docker.sock:ro
         ports:
             - 80:80
             - 443:443
-            - 8080:8080
+        networks:
+            - web
 
-    authelia:
-        image: authelia/authelia:latest
-        container_name: authelia
-        restart: unless-stopped
-        volumes:
-            - /etc/authelia:/config
-        ports:
-            - 9091:9091
-        environment:
-            - TZ=Europe/Berlin
-
-    heimdall:
-        image: lscr.io/linuxserver/heimdall:latest
-        container_name: heimdall
-        restart: unless-stopped
-        volumes:
-            - /etc/heimdall:/config
-        ports:
-            - 1443:443
-        labels:
-            - traefik.http.routers.heimdall.rule=Host(`heimdall.domain`)
-            - traefik.http.routers.adminer.tls=true
-            - traefik.http.routers.adminer.tls.certresolver=production
-        environment:
-            - PUID=1000
-            - PGID=1000
-            - TZ=Europe/Berlin
+networks:
+    web:
+        name: traefik_web
