@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+    heimdall:
+        image: lscr.io/linuxserver/heimdall:latest
+        container_name: heimdall
+        restart: unless-stopped
+        volumes:
+            - /etc/heimdall:/config
+        ports:
+            - 1443:443
+        networks:
+            - traefik_web
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.heimdall.rule=Host(`heimdall.domain`)
+            - traefik.http.routers.heimdall.entrypoints=websecure
+            - traefik.http.routers.heimdall.tls=true
+            - traefik.http.routers.heimdall.tls.certresolver=prod
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Berlin
+
+networks:
+    traefik_web:
+        external: true
