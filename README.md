@@ -27,14 +27,14 @@ image-umount.sh: Unmount and close
 sudo mkdir -p /var/lib/homelab
 sudo chown -R $USER /var/lib/homelab
 
-# lxc/lxd init
-sudo lxd init
-
 # nodes image (~40GB)
 image-create.sh nodes 40
 
 # c_data image (~512GB)
 image-create.sh c_data 512
+
+# lxc/lxd init
+sudo lxd init
 
 # create lxc/lxd storage pool
 lxc storage create nodes-pool btrfs source=/mnt/nodes
