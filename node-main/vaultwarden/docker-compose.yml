@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+    vaultwarden:
+        image: vaultwarden/server:latest
+        container_name: vaultwarden
+        restart: unless-stopped
+        volumes:
+            - type: bind
+              source: /mnt/c_data/vaultwarden/data
+              target: /data
+        ports:
+            - 4002:80
+        networks:
+            - traefik_web
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.vaultwarden.rule=Host(`vaultwarden.domain`)
+            - traefik.http.routers.vaultwarden.entrypoints=websecure
+            - traefik.http.routers.vaultwarden.tls=true
+            - traefik.http.routers.vaultwarden.tls.certresolver=prod
+            - traefik.http.middlewares.vaultwardensts.headers.forcestsheader=true
+            - traefik.http.middlewares.vaultwardensts.headers.stsincludesubdomains=false
+            - traefik.http.middlewares.vaultwardensts.headers.stspreload=false
+            - traefik.http.middlewares.vaultwardensts.headers.stsseconds=31536000
+            - traefik.http.routers.vaultwarden.middlewares=authelia@docker,vaultwardensts
+        environment:
+            - ADMIN_TOKEN=secret
+            - DOMAIN=https://vaultwarden.domain
+
+networks:
+    traefik_web:
+        external: true

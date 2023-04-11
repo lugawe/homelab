@@ -19,6 +19,10 @@ lxc config device add node-main c_data disk source=/mnt/c_data path=/mnt/c_data
 mkdir -p -m 777 /mnt/c_data/nextcloud
 mkdir -p -m 777 /mnt/c_data/nextcloud/config
 mkdir -p -m 777 /mnt/c_data/nextcloud/data
+
+# vaultwarden
+mkdir -p -m 777 /mnt/c_data/vaultwarden
+mkdir -p -m 777 /mnt/c_data/vaultwarden/data
 ```
 
 ## nextcloud
