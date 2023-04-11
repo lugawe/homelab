@@ -22,6 +22,8 @@ access_control:
           policy: two_factor
         - domain: vaultwarden.domain
           policy: two_factor
+        - domain: jellyfin.domain
+          policy: two_factor
 
 session:
     name: authelia_session
