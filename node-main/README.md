@@ -8,4 +8,5 @@ node-main setup
 # traefik
 lxc config device add node-main traefik80 proxy listen=tcp:0.0.0.0:80 connect=tcp:0.0.0.0:80
 lxc config device add node-main traefik443 proxy listen=tcp:0.0.0.0:443 connect=tcp:0.0.0.0:443
+lxc config device add node-main portainer19443 proxy listen=tcp:0.0.0.0:19443 connect=tcp:0.0.0.0:9443
 ```
