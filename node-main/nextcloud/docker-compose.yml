@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+    nextcloud:
+        image: lscr.io/linuxserver/nextcloud:latest
+        container_name: nextcloud
+        restart: unless-stopped
+        volumes:
+            - type: bind
+              source: /mnt/c_data/nextcloud/config
+              target: /config
+            - type: bind
+              source: /mnt/c_data/nextcloud/data
+              target: /data
+        ports:
+            - 2443:443
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.nextcloud.rule=Host(`nextcloud.domain`)
+            - traefik.http.routers.nextcloud.entrypoints=websecure
+            - traefik.http.routers.nextcloud.tls=true
+            - traefik.http.routers.nextcloud.tls.certresolver=prod
+            - traefik.http.routers.nextcloud.middlewares=authelia@docker
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Berlin
