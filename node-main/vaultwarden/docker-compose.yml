@@ -6,9 +6,7 @@ services:
         container_name: vaultwarden
         restart: unless-stopped
         volumes:
-            - type: bind
-              source: /mnt/c_data/vaultwarden/data
-              target: /data
+            - /mnt/c_data/vaultwarden/data:/data
         ports:
             - 4002:80
         networks:
