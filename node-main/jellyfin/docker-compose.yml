@@ -6,29 +6,12 @@ services:
         container_name: jellyfin
         restart: unless-stopped
         volumes:
-            - type: bind
-              source: /etc/jellyfin
-              target: /config
-            - type: bind
-              source: /mnt/extern_disk/media/movies
-              target: /data/movies
-              read_only: true
-            - type: bind
-              source: /mnt/extern_disk/media/series
-              target: /data/series
-              read_only: true
-            - type: bind
-              source: /mnt/extern_disk/media/videos
-              target: /data/videos
-              read_only: true
-            - type: bind
-              source: /mnt/extern_disk/media/photos
-              target: /data/photos
-              read_only: true
-            - type: bind
-              source: /mnt/extern_disk/media/other
-              target: /data/other
-              read_only: true
+            - /etc/jellyfin:/config
+            - /mnt/extern_disk/media/movies:/data/movies:ro
+            - /mnt/extern_disk/media/series:/data/series:ro
+            - /mnt/extern_disk/media/videos:/data/videos:ro
+            - /mnt/extern_disk/media/photos:/data/photos:ro
+            - /mnt/extern_disk/media/other:/data/other:ro
         ports:
             - 4003:8096
         networks:
