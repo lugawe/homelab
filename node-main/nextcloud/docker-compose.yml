@@ -14,6 +14,8 @@ services:
               target: /data
         ports:
             - 2443:443
+        networks:
+            - traefik_web
         labels:
             - traefik.enable=true
             - traefik.http.routers.nextcloud.rule=Host(`nextcloud.domain`)
@@ -25,3 +27,7 @@ services:
             - PUID=1000
             - PGID=1000
             - TZ=Europe/Berlin
+
+networks:
+    traefik_web:
+        external: true
