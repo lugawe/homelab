@@ -24,7 +24,7 @@ services:
             - 80:80
             - 443:443
         networks:
-            - web
+            - traefik_web
 
     authelia:
         image: authelia/authelia:latest
@@ -35,19 +35,19 @@ services:
         ports:
             - 9091:9091
         networks:
-            - web
+            - traefik_web
         labels:
             - traefik.enable=true
             - traefik.http.routers.authelia.rule=Host(`auth.domain`)
             - traefik.http.routers.authelia.entrypoints=websecure
             - traefik.http.routers.authelia.tls=true
             - traefik.http.routers.authelia.tls.certresolver=prod
-            - traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify?rd=https%3A%2F%2Fauth.domain%2F
+            - traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify
             - traefik.http.middlewares.authelia.forwardauth.trustforwardheader=true
             - traefik.http.middlewares.authelia.forwardauth.authresponseheaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email
         environment:
             - TZ=Europe/Berlin
 
 networks:
-    web:
+    traefik_web:
         name: traefik_web
