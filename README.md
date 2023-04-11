@@ -46,30 +46,6 @@ lxc storage create nodes-pool btrfs source=/mnt/nodes
 node-create.sh
 ```
 
-### node1 - node3
+### node-main
 
-In node1, node2 and node3 is docker and portainer installed.
-
-Expose portainer web ui ports:
-
-```shell
-lxc config device add node1 portainer19443 proxy listen=tcp:0.0.0.0:19443 connect=tcp:0.0.0.0:9443
-lxc config device add node2 portainer29443 proxy listen=tcp:0.0.0.0:29443 connect=tcp:0.0.0.0:9443
-lxc config device add node3 portainer39443 proxy listen=tcp:0.0.0.0:39443 connect=tcp:0.0.0.0:9443
-```
-
-### node1
-
-Container contains nginx-proxy-manager, authelia and heimdall.
-
-### node2
-
-Container contains nextcloud + code-server.
-
-### node3
-
-Container contains jellyfin.
-
-### node4
-
-Container contains virtual machines.
+### node-vm
