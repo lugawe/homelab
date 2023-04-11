@@ -20,3 +20,15 @@ mkdir -p -m 777 /mnt/c_data/nextcloud
 mkdir -p -m 777 /mnt/c_data/nextcloud/config
 mkdir -p -m 777 /mnt/c_data/nextcloud/data
 ```
+
+## nextcloud
+
+Check nextcloud config:
+
+```
+/config/www/nextcloud/config/config.php
+
+Configure: trusted_domains
+Set 'check_data_directory_permissions' => false
+Set 'overwriteprotocol' => 'https'
+```
