@@ -17,7 +17,11 @@ services:
             - traefik.http.routers.heimdall.entrypoints=websecure
             - traefik.http.routers.heimdall.tls=true
             - traefik.http.routers.heimdall.tls.certresolver=prod
-            - traefik.http.routers.heimdall.middlewares=authelia@docker
+            - traefik.http.middlewares.heimdall_headers.headers.forcestsheader=true
+            - traefik.http.middlewares.heimdall_headers.headers.stsincludesubdomains=true
+            - traefik.http.middlewares.heimdall_headers.headers.stspreload=false
+            - traefik.http.middlewares.heimdall_headers.headers.stsseconds=31536000
+            - traefik.http.routers.heimdall.middlewares=authelia@docker,heimdall_headers
         environment:
             - PUID=1000
             - PGID=1000
