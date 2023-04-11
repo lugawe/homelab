@@ -13,7 +13,7 @@ services:
               source: /mnt/c_data/nextcloud/data
               target: /data
         ports:
-            - 2443:443
+            - 4001:443
         networks:
             - traefik_web
         labels:
