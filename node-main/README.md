@@ -1,11 +1,11 @@
-# node1
+# node-main
 
-node1 setup
+node-main setup
 
 ## init
 
 ```shell
 # traefik
-lxc config device add node1 traefik80 proxy listen=tcp:0.0.0.0:80 connect=tcp:0.0.0.0:80
-lxc config device add node1 traefik443 proxy listen=tcp:0.0.0.0:443 connect=tcp:0.0.0.0:443
+lxc config device add node-main traefik80 proxy listen=tcp:0.0.0.0:80 connect=tcp:0.0.0.0:80
+lxc config device add node-main traefik443 proxy listen=tcp:0.0.0.0:443 connect=tcp:0.0.0.0:443
 ```
