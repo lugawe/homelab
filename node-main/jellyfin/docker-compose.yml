@@ -22,11 +22,11 @@ services:
             - traefik.http.routers.jellyfin.entrypoints=websecure
             - traefik.http.routers.jellyfin.tls=true
             - traefik.http.routers.jellyfin.tls.certresolver=prod
-            - traefik.http.middlewares.jellyfinsts.headers.forcestsheader=true
-            - traefik.http.middlewares.jellyfinsts.headers.stsincludesubdomains=false
-            - traefik.http.middlewares.jellyfinsts.headers.stspreload=false
-            - traefik.http.middlewares.jellyfinsts.headers.stsseconds=31536000
-            - traefik.http.routers.jellyfin.middlewares=authelia@docker,jellyfinsts
+            - traefik.http.middlewares.jellyfin_headers.headers.forcestsheader=true
+            - traefik.http.middlewares.jellyfin_headers.headers.stsincludesubdomains=true
+            - traefik.http.middlewares.jellyfin_headers.headers.stspreload=false
+            - traefik.http.middlewares.jellyfin_headers.headers.stsseconds=31536000
+            - traefik.http.routers.jellyfin.middlewares=authelia@docker,jellyfin_headers
         environment:
             - PUID=1000
             - PGID=1000

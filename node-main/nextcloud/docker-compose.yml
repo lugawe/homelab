@@ -18,11 +18,11 @@ services:
             - traefik.http.routers.nextcloud.entrypoints=websecure
             - traefik.http.routers.nextcloud.tls=true
             - traefik.http.routers.nextcloud.tls.certresolver=prod
-            - traefik.http.middlewares.nextcloudsts.headers.forcestsheader=true
-            - traefik.http.middlewares.nextcloudsts.headers.stsincludesubdomains=false
-            - traefik.http.middlewares.nextcloudsts.headers.stspreload=false
-            - traefik.http.middlewares.nextcloudsts.headers.stsseconds=31536000
-            - traefik.http.routers.nextcloud.middlewares=authelia@docker,nextcloudsts
+            - traefik.http.middlewares.nextcloud_headers.headers.forcestsheader=true
+            - traefik.http.middlewares.nextcloud_headers.headers.stsincludesubdomains=true
+            - traefik.http.middlewares.nextcloud_headers.headers.stspreload=false
+            - traefik.http.middlewares.nextcloud_headers.headers.stsseconds=31536000
+            - traefik.http.routers.nextcloud.middlewares=authelia@docker,nextcloud_headers
         environment:
             - PUID=1000
             - PGID=1000
