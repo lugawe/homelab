@@ -45,11 +45,12 @@ services:
             - traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify?rd=https%3A%2F%2Fauth.domain
             - traefik.http.middlewares.authelia.forwardauth.trustforwardheader=true
             - traefik.http.middlewares.authelia.forwardauth.authresponseheaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email
-            - traefik.http.middlewares.autheliasts.headers.forcestsheader=true
-            - traefik.http.middlewares.autheliasts.headers.stsincludesubdomains=false
-            - traefik.http.middlewares.autheliasts.headers.stspreload=false
-            - traefik.http.middlewares.autheliasts.headers.stsseconds=31536000
-            - traefik.http.routers.authelia.middlewares=autheliasts
+            - traefik.http.middlewares.authelia_headers.headers.forcestsheader=true
+            - traefik.http.middlewares.authelia_headers.headers.stsincludesubdomains=true
+            - traefik.http.middlewares.authelia_headers.headers.stspreload=false
+            - traefik.http.middlewares.authelia_headers.headers.stsseconds=31536000
+            - traefik.http.middlewares.authelia_headers.headers.framedeny=true
+            - traefik.http.routers.authelia.middlewares=authelia_headers
         environment:
             - TZ=Europe/Berlin
 
