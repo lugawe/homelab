@@ -28,7 +28,8 @@ Check nextcloud config:
 ```
 /config/www/nextcloud/config/config.php
 
-Configure: trusted_domains
-Set 'check_data_directory_permissions' => false
-Set 'overwriteprotocol' => 'https'
+Configure: 'trusted_domains'
+Configure: 'trusted_proxies'
+Set: 'check_data_directory_permissions' => false
+Set: 'overwriteprotocol' => 'https'
 ```
