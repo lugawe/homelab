@@ -2,6 +2,16 @@
 
 node-main setup
 
+<b>traefik + authelia</b>
+
+<b>heimdall</b>
+
+<b>nextcloud</b>
+
+<b>vaultwarden</b>
+
+<b>jellyfin</b>
+
 ## init
 
 ```shell
