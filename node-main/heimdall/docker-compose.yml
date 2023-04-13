@@ -6,7 +6,7 @@ services:
         container_name: heimdall
         restart: unless-stopped
         volumes:
-            - /etc/heimdall:/config
+            - /mnt/c_data/heimdall/config:/config
         ports:
             - 1443:443
         networks:

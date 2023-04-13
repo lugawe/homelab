@@ -6,7 +6,7 @@ services:
         container_name: jellyfin
         restart: unless-stopped
         volumes:
-            - /etc/jellyfin:/config
+            - /mnt/c_data/jellyfin/config:/config
             - /mnt/extern_disk/media/movies:/data/movies:ro
             - /mnt/extern_disk/media/series:/data/series:ro
             - /mnt/extern_disk/media/videos:/data/videos:ro
