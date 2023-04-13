@@ -6,6 +6,8 @@ node-main setup
 
 <b>heimdall</b>
 
+<b>gitea</b>
+
 <b>nextcloud</b>
 
 <b>vaultwarden</b>
@@ -51,3 +53,5 @@ Configure: 'trusted_proxies'
 Set: 'check_data_directory_permissions' => false
 Set: 'overwriteprotocol' => 'https'
 ```
+
+## jellyfin
