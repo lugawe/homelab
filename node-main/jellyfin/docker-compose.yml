@@ -13,7 +13,7 @@ services:
             - /mnt/extern_disk/media/photos:/data/photos:ro
             - /mnt/extern_disk/media/other:/data/other:ro
         ports:
-            - 4003:8096
+            - 4004:8096
         networks:
             - traefik_net
         labels:

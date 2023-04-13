@@ -8,9 +8,9 @@ services:
         volumes:
             - /etc/timezone:/etc/timezone:ro
             - /etc/localtime:/etc/localtime:ro
-            - /mnt/c_data/gitea:/data
+            - /mnt/c_data/gitea/data:/data
         ports:
-            - 4004:3000
+            - 4001:3000
         networks:
             - traefik_net
         labels:

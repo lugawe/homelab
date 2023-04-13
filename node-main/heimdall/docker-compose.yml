@@ -8,7 +8,7 @@ services:
         volumes:
             - /mnt/c_data/heimdall/config:/config
         ports:
-            - 1443:443
+            - 4000:443
         networks:
             - traefik_net
         labels:

@@ -9,7 +9,7 @@ services:
             - /mnt/c_data/nextcloud/config:/config
             - /mnt/c_data/nextcloud/data:/data
         ports:
-            - 4001:443
+            - 4002:443
         networks:
             - traefik_net
         labels:
