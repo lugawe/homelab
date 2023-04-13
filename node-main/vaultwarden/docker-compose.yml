@@ -10,7 +10,7 @@ services:
         ports:
             - 4002:80
         networks:
-            - traefik_web
+            - traefik_net
         labels:
             - traefik.enable=true
             - traefik.http.routers.vaultwarden.rule=Host(`vaultwarden.domain`)
@@ -27,5 +27,5 @@ services:
             - DOMAIN=https://vaultwarden.domain
 
 networks:
-    traefik_web:
+    traefik_net:
         external: true

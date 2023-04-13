@@ -10,7 +10,7 @@ services:
         ports:
             - 1443:443
         networks:
-            - traefik_web
+            - traefik_net
         labels:
             - traefik.enable=true
             - traefik.http.routers.heimdall.rule=Host(`heimdall.domain`)
@@ -28,5 +28,5 @@ services:
             - TZ=Europe/Berlin
 
 networks:
-    traefik_web:
+    traefik_net:
         external: true

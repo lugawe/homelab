@@ -15,7 +15,7 @@ services:
         ports:
             - 4003:8096
         networks:
-            - traefik_web
+            - traefik_net
         labels:
             - traefik.enable=false
             - traefik.http.routers.jellyfin.rule=Host(`jellyfin.domain`)
@@ -33,5 +33,5 @@ services:
             - TZ=Europe/Berlin
 
 networks:
-    traefik_web:
+    traefik_net:
         external: true

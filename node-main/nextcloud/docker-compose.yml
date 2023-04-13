@@ -11,7 +11,7 @@ services:
         ports:
             - 4001:443
         networks:
-            - traefik_web
+            - traefik_net
         labels:
             - traefik.enable=true
             - traefik.http.routers.nextcloud.rule=Host(`nextcloud.domain`)
@@ -29,5 +29,5 @@ services:
             - TZ=Europe/Berlin
 
 networks:
-    traefik_web:
+    traefik_net:
         external: true
