@@ -27,6 +27,15 @@ lxc config device add node-main traefik443 proxy listen=tcp:0.0.0.0:443 connect=
 # c_data
 lxc config device add node-main c_data disk source=/mnt/c_data path=/mnt/c_data
 
+# gitea
+mkdir -p -m 777 /mnt/c_data/gitea
+
+# nextcloud
+mkdir -p -m 777 /mnt/c_data/nextcloud
+
+# vaultwarden
+mkdir -p -m 777 /mnt/c_data/vaultwarden
+
 # jellyfin
 lxc config device add node-main jellyfin14003 proxy listen=tcp:0.0.0.0:14003 connect=tcp:0.0.0.0:4003
 lxc config device add node-main extern_disk disk source=/mnt/extern_disk path=/mnt/extern_disk
