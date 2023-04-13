@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+    gitea:
+        image: gitea/gitea:latest
+        container_name: gitea
+        restart: unless-stopped
+        volumes:
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
+            - /mnt/c_data/gitea:/data
+        ports:
+            - 4004:3000
+        networks:
+            - traefik_net
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.gitea.rule=Host(`git.domain`)
+            - traefik.http.routers.gitea.entrypoints=websecure
+            - traefik.http.routers.gitea.tls=true
+            - traefik.http.routers.gitea.tls.certresolver=prod
+            - traefik.http.middlewares.gitea_headers.headers.forcestsheader=true
+            - traefik.http.middlewares.gitea_headers.headers.stsincludesubdomains=true
+            - traefik.http.middlewares.gitea_headers.headers.stspreload=false
+            - traefik.http.middlewares.gitea_headers.headers.stsseconds=31536000
+            - traefik.http.routers.gitea.middlewares=authelia@docker,gitea_headers
+            - traefik.http.services.gitea-websecure.loadbalancer.server.port=3000
+        environment:
+            - USER_UID=1000
+            - USER_GID=1000
+            - PROTOCOL=https
+            - ROOT_URL=https://git.domain
+
+networks:
+    traefik_net:
+        external: true
