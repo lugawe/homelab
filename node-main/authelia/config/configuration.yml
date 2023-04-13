@@ -18,6 +18,8 @@ access_control:
           policy: bypass
         - domain: heimdall.domain
           policy: one_factor
+        - domain: git.domain
+          policy: two_factor
         - domain: nextcloud.domain
           policy: two_factor
         - domain: vaultwarden.domain
