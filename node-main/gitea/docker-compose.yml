@@ -54,6 +54,7 @@ services:
 
 networks:
     gitea_net:
+        name: gitea_net
         external: false
     traefik_net:
         external: true

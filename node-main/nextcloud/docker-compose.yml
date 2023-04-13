@@ -46,6 +46,7 @@ services:
 
 networks:
     nextcloud_net:
+        name: nextcloud_net
         external: false
     traefik_net:
         external: true
