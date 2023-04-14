@@ -37,7 +37,7 @@ mkdir -p -m 777 /mnt/c_data/nextcloud
 mkdir -p -m 777 /mnt/c_data/vaultwarden
 
 # jellyfin
-lxc config device add node-main jellyfin14003 proxy listen=tcp:0.0.0.0:14003 connect=tcp:0.0.0.0:4003
+lxc config device add node-main jellyfin14004 proxy listen=tcp:0.0.0.0:14004 connect=tcp:0.0.0.0:4004
 lxc config device add node-main extern_disk disk source=/mnt/extern_disk path=/mnt/extern_disk
 ```
 
