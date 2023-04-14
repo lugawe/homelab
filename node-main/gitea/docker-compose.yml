@@ -19,7 +19,7 @@ services:
             - traefik_net
         labels:
             - traefik.enable=true
-            - traefik.http.routers.gitea.rule=Host(`git.domain`)
+            - traefik.http.routers.gitea.rule=Host(`${GITEA_DOMAIN}`)
             - traefik.http.routers.gitea.entrypoints=websecure
             - traefik.http.routers.gitea.tls=true
             - traefik.http.routers.gitea.tls.certresolver=prod
@@ -33,12 +33,12 @@ services:
             - USER_UID=1000
             - USER_GID=1000
             - PROTOCOL=https
-            - ROOT_URL=https://git.domain
+            - ROOT_URL=https://${GITEA_DOMAIN}
             - GITEA__database__DB_TYPE=postgres
             - GITEA__database__HOST=gitea-database
             - GITEA__database__NAME=gitea
             - GITEA__database__USER=gitea
-            - GITEA__database__PASSWD=secret
+            - GITEA__database__PASSWD=${POSTGRES_PASSWORD}
 
     gitea-database:
         image: postgres:latest
@@ -51,7 +51,7 @@ services:
         environment:
             - POSTGRES_DB=gitea
             - POSTGRES_USER=gitea
-            - POSTGRES_PASSWORD=secret
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
 networks:
     gitea_net:
