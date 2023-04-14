@@ -42,7 +42,7 @@ services:
         environment:
             - POSTGRES_DB=nextcloud
             - POSTGRES_USER=nextcloud
-            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            - POSTGRES_PASSWORD=${NEXTCLOUD_POSTGRES_PASSWORD}
 
 networks:
     nextcloud_net:
