@@ -13,7 +13,7 @@ services:
             - traefik_net
         labels:
             - traefik.enable=true
-            - traefik.http.routers.vaultwarden.rule=Host(`vaultwarden.domain`)
+            - traefik.http.routers.vaultwarden.rule=Host(`${VAULTWARDEN_DOMAIN}`)
             - traefik.http.routers.vaultwarden.entrypoints=websecure
             - traefik.http.routers.vaultwarden.tls=true
             - traefik.http.routers.vaultwarden.tls.certresolver=prod
@@ -23,8 +23,8 @@ services:
             - traefik.http.middlewares.vaultwarden_headers.headers.stsseconds=31536000
             - traefik.http.routers.vaultwarden.middlewares=authelia@docker,vaultwarden_headers
         environment:
-            - ADMIN_TOKEN=secret
-            - DOMAIN=https://vaultwarden.domain
+            - ADMIN_TOKEN=${VAULTWARDEN_ADMIN_TOKEN}
+            - DOMAIN=https://${VAULTWARDEN_DOMAIN}
 
 networks:
     traefik_net:
