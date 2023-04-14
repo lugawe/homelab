@@ -15,7 +15,7 @@ services:
             - "--entrypoints.websecure.address=:443"
             - "--certificatesresolvers.prod.acme.storage=/letsencrypt/acme.json"
             - "--certificatesresolvers.prod.acme.tlschallenge=true"
-            - "--certificatesresolvers.prod.acme.email=email"
+            - "--certificatesresolvers.prod.acme.email=${TRAEFIK_ACME_EMAIL}"
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock:ro
             - /etc/traefik:/etc/traefik
@@ -38,11 +38,11 @@ services:
             - traefik_net
         labels:
             - traefik.enable=true
-            - traefik.http.routers.authelia.rule=Host(`auth.domain`)
+            - traefik.http.routers.authelia.rule=Host(`${AUTHELIA_DOMAIN}`)
             - traefik.http.routers.authelia.entrypoints=websecure
             - traefik.http.routers.authelia.tls=true
             - traefik.http.routers.authelia.tls.certresolver=prod
-            - traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify?rd=https%3A%2F%2Fauth.domain
+            - traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify?rd=https%3A%2F%2F${AUTHELIA_DOMAIN}
             - traefik.http.middlewares.authelia.forwardauth.trustforwardheader=true
             - traefik.http.middlewares.authelia.forwardauth.authresponseheaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email
             - traefik.http.middlewares.authelia_headers.headers.forcestsheader=true
