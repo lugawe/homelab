@@ -13,6 +13,7 @@ services:
             - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
             - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
             - "--entrypoints.websecure.address=:443"
+            - "--entrypoints.ssh.address=:2222"
             - "--certificatesresolvers.prod.acme.storage=/letsencrypt/acme.json"
             - "--certificatesresolvers.prod.acme.tlschallenge=true"
             - "--certificatesresolvers.prod.acme.email=${TRAEFIK_ACME_EMAIL}"
@@ -23,6 +24,7 @@ services:
         ports:
             - 80:80
             - 443:443
+            - 2222:2222
         networks:
             - traefik_net
 
