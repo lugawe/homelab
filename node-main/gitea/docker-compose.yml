@@ -59,7 +59,7 @@ services:
             - POSTGRES_PASSWORD=${GITEA_POSTGRES_PASSWORD}
 
     gitea-cache:
-        image: redis:latest
+        image: redis:alpine
         container_name: gitea-cache
         restart: unless-stopped
         networks:
