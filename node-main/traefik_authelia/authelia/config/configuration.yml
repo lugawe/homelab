@@ -40,10 +40,10 @@ authentication_backend:
         path: /config/users_database.yml
         password:
             algorithm: argon2id
-            iterations: 4
+            iterations: 8
             key_length: 32
             salt_length: 16
-            memory: 2048
+            memory: 65536
             parallelism: 8
     password_reset:
         disable: true
