@@ -12,6 +12,8 @@ services:
             - /etc/timezone:/etc/timezone:ro
             - /etc/localtime:/etc/localtime:ro
             - /mnt/c_data/gitea/data:/data
+        ports:
+            - 4001:3000
         networks:
             - gitea_net
             - traefik_net
@@ -43,7 +45,7 @@ services:
             - GITEA__cache__ENABLED=true
             - GITEA__cache__ADAPTER=redis
             - GITEA__cache__HOST=redis://gitea-cache:6379/0?pool_size=100
-            - GITEA__cache__ITEM_TTL=24h
+            - GITEA__cache__ITEM_TTL=12h
 
     gitea-database:
         image: postgres:latest
