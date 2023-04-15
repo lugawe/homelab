@@ -7,6 +7,7 @@ services:
         restart: unless-stopped
         depends_on:
             - gitea-database
+            - gitea-cache
         volumes:
             - /etc/timezone:/etc/timezone:ro
             - /etc/localtime:/etc/localtime:ro
@@ -39,6 +40,10 @@ services:
             - GITEA__database__NAME=gitea
             - GITEA__database__USER=gitea
             - GITEA__database__PASSWD=${GITEA_POSTGRES_PASSWORD}
+            - GITEA__cache__ENABLED=true
+            - GITEA__cache__ADAPTER=redis
+            - GITEA__cache__HOST=redis://gitea-cache:6379/0?pool_size=100
+            - GITEA__cache__ITEM_TTL=24h
 
     gitea-database:
         image: postgres:latest
@@ -52,6 +57,13 @@ services:
             - POSTGRES_DB=gitea
             - POSTGRES_USER=gitea
             - POSTGRES_PASSWORD=${GITEA_POSTGRES_PASSWORD}
+
+    gitea-cache:
+        image: redis:latest
+        container_name: gitea-cache
+        restart: unless-stopped
+        networks:
+            - gitea_net
 
 networks:
     gitea_net:
