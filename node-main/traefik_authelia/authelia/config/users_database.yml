@@ -1,6 +1,6 @@
 users:
     admin:
-        password: $argon2id$v=19$m=2097152,t=4,p=8$GudsXHeiLl17GNlHW+xsxg$JO4kK/dO3NYw5YjHAXFPGjZaTqVn08y7CJoS3Ce5Mi4 # 1234
+        password: $argon2id$v=19$m=65536,t=4,p=4$WGgwQU1UUGZ4dFE3VnpVYQ$uDuUDFRijjiVX+dcyDuayyHAUNgUtnrTKGGHpT9NjkM # 1234
         displayname: admin
         email: invalid
         groups:
@@ -8,7 +8,7 @@ users:
             - dev
         disabled: false
     luwe:
-        password: $argon2id$v=19$m=2097152,t=4,p=8$GudsXHeiLl17GNlHW+xsxg$JO4kK/dO3NYw5YjHAXFPGjZaTqVn08y7CJoS3Ce5Mi4 # 1234
+        password: $argon2id$v=19$m=65536,t=4,p=4$WGgwQU1UUGZ4dFE3VnpVYQ$uDuUDFRijjiVX+dcyDuayyHAUNgUtnrTKGGHpT9NjkM # 1234
         displayname: luwe
         email: invalid
         groups: []
