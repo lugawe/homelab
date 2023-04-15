@@ -23,6 +23,7 @@ lxc config device add node-main portainer9443 proxy listen=tcp:0.0.0.0:9443 conn
 # traefik
 lxc config device add node-main traefik80 proxy listen=tcp:0.0.0.0:80 connect=tcp:0.0.0.0:80
 lxc config device add node-main traefik443 proxy listen=tcp:0.0.0.0:443 connect=tcp:0.0.0.0:443
+lxc config device add node-main traefik2222 proxy listen=tcp:0.0.0.0:2222 connect=tcp:0.0.0.0:2222
 
 # c_data
 lxc config device add node-main c_data disk source=/mnt/c_data path=/mnt/c_data
