@@ -12,7 +12,7 @@ users:
         displayname: guest
         email: invalid
         groups: []
-        disabled: false    
+        disabled: false
     luwe:
         password: $argon2id$v=19$m=2097152,t=4,p=4$YcBspet5Rc/5dIoQtu0qow$6GPDgiwfnFJid4NAcb5kZgS2WQ8+mOm9FXOMs/91I08 # luwe
         displayname: luwe
