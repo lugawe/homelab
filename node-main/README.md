@@ -49,10 +49,9 @@ Check nextcloud config:
 ```
 /config/www/nextcloud/config/config.php
 
-Configure: 'trusted_domains'
-Configure: 'trusted_proxies'
-Set: 'check_data_directory_permissions' => false
-Set: 'overwriteprotocol' => 'https'
+Check: 'trusted_domains'
+Check: 'trusted_proxies'
+Check: 'overwriteprotocol' => 'https'
 ```
 
 ## jellyfin
