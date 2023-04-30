@@ -9,7 +9,6 @@ default_2fa_method: totp
 server:
     host: 0.0.0.0
     port: 9091
-    disable_healthcheck: false
 
 access_control:
     default_policy: deny
@@ -63,7 +62,6 @@ regulation:
     ban_time: 24h
 
 notifier:
-    disable_startup_check: false
     filesystem:
         filename: /config/notification
 
