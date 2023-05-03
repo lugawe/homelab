@@ -36,6 +36,9 @@ image-create.sh c_data 512
 # lxc/lxd init
 sudo lxd init
 
+# disable lxc/lxd container autostart
+lxc profile set default boot.autostart=false
+
 # create lxc/lxd storage pool
 lxc storage create nodes-pool btrfs source=/mnt/nodes
 ```
