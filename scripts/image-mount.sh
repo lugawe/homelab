@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-target_dir=/var/lib/homelab/image
+target_dir=/var/cimage
 
 image_name=$1
 

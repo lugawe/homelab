@@ -10,7 +10,7 @@ Use at your own risk.
 
 ## Image scripts
 
-The following scripts store the encrypted data in <b>/var/lib/homelab/image</b>.
+The following scripts store the encrypted data in <b>/var/cimage</b>.
 
 image-create.sh: Create a luks2 encrypted image file and mount it
 
@@ -24,8 +24,8 @@ image-umount.sh: Unmount and close
 
 ```shell
 # homelab init
-sudo mkdir -p /var/lib/homelab
-sudo chown -R $USER /var/lib/homelab
+sudo mkdir /var/cimage
+sudo chown -R $USER /var/cimage
 
 # nodes image (~40GB)
 image-create.sh nodes 40
