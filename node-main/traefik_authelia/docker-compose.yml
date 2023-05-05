@@ -18,6 +18,8 @@ services:
             - "--certificatesresolvers.prod.acme.tlschallenge=true"
             - "--certificatesresolvers.prod.acme.email=${TRAEFIK_ACME_EMAIL}"
         volumes:
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
             - /var/run/docker.sock:/var/run/docker.sock:ro
             - /mnt/c_data/traefik/config:/etc/traefik
             - /mnt/c_data/traefik/letsencrypt:/letsencrypt
@@ -33,6 +35,8 @@ services:
         container_name: authelia
         restart: unless-stopped
         volumes:
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
             - /mnt/c_data/authelia/config:/config
         ports:
             - 9091:9091
