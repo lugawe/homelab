@@ -2,14 +2,14 @@ version: "3"
 
 services:
     nextcloud:
-        image: lscr.io/linuxserver/nextcloud:latest
+        image: nextcloud:latest
         container_name: nextcloud
         restart: unless-stopped
         depends_on:
             - nextcloud-database
+            - nextcloud-redis
         volumes:
-            - /mnt/c_data/nextcloud/config:/config
-            - /mnt/c_data/nextcloud/data:/data
+            - /mnt/c_data/nextcloud/app:/var/www/html
         ports:
             - 4002:443
         networks:
@@ -27,9 +27,15 @@ services:
             - traefik.http.middlewares.nextcloud_headers.headers.stsseconds=31536000
             - traefik.http.routers.nextcloud.middlewares=authelia@docker,nextcloud_headers
         environment:
-            - PUID=1000
-            - PGID=1000
-            - TZ=Europe/Berlin
+            - OVERWRITEPROTOCOL=https
+            - OVERWRITECLIURL=https://${NEXTCLOUD_DOMAIN}
+            - OVERWRITEHOST=${NEXTCLOUD_DOMAIN}
+            - POSTGRES_HOST=nextcloud-database
+            - POSTGRES_DB=nextcloud
+            - POSTGRES_USER=nextcloud
+            - POSTGRES_PASSWORD=${NEXTCLOUD_POSTGRES_PASSWORD}
+            - REDIS_HOST=nextcloud-redis
+            - REDIS_HOST_PASSWORD=${NEXTCLOUD_REDIS_PASSWORD}
 
     nextcloud-database:
         image: postgres:latest
@@ -43,6 +49,14 @@ services:
             - POSTGRES_DB=nextcloud
             - POSTGRES_USER=nextcloud
             - POSTGRES_PASSWORD=${NEXTCLOUD_POSTGRES_PASSWORD}
+
+    nextcloud-redis:
+        image: redis:alpine
+        container_name: nextcloud-redis
+        restart: unless-stopped
+        command: redis-server --requirepass ${NEXTCLOUD_REDIS_PASSWORD}
+        networks:
+            - nextcloud_net
 
 networks:
     nextcloud_net:
