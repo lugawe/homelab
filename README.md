@@ -27,20 +27,14 @@ image-umount.sh: Unmount and close
 sudo mkdir /var/cimage
 sudo chown -R $USER /var/cimage
 
-# nodes image (~40GB)
-image-create.sh nodes 40
-
-# c_data image (~512GB)
-image-create.sh c_data 512
+# c_data image
+image-create.sh c_data
 
 # lxc/lxd init
 sudo lxd init
 
 # disable lxc/lxd container autostart
 lxc profile set default boot.autostart=false
-
-# create lxc/lxd storage pool
-lxc storage create nodes-pool btrfs source=/mnt/nodes
 ```
 
 ### Create nodes
