@@ -41,17 +41,3 @@ mkdir -p -m 777 /mnt/c_data/jellyfin
 lxc config device add node-main jellyfin14004 proxy listen=tcp:0.0.0.0:14004 connect=tcp:0.0.0.0:4004
 lxc config device add node-main extern_disk disk source=/mnt/extern_disk path=/mnt/extern_disk
 ```
-
-## nextcloud
-
-Check nextcloud config:
-
-```
-/config/www/nextcloud/config/config.php
-
-Check: 'trusted_domains'
-Check: 'trusted_proxies'
-Check: 'overwriteprotocol' => 'https'
-```
-
-## jellyfin
