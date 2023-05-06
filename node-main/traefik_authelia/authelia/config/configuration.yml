@@ -26,13 +26,6 @@ access_control:
         - domain: jellyfin.domain
           policy: two_factor
 
-session:
-    name: authelia_session
-    secret: secret
-    expiration: 3600
-    inactivity: 300
-    domain: domain
-
 authentication_backend:
     refresh_interval: 5m
     file:
@@ -47,6 +40,18 @@ authentication_backend:
     password_reset:
         disable: true
 
+session:
+    name: authelia_session
+    secret: secret
+    expiration: 3600
+    inactivity: 300
+    domain: domain
+
+regulation:
+    max_retries: 3
+    find_time: 5m
+    ban_time: 24h
+
 totp:
     disable: false
     issuer: domain
@@ -56,19 +61,14 @@ totp:
     skew: 1
     secret_size: 32
 
-regulation:
-    max_retries: 3
-    find_time: 5m
-    ban_time: 24h
-
-notifier:
-    filesystem:
-        filename: /config/notification
-
 storage:
     local:
         path: /config/db.sqlite3
     encryption_key: secret
+
+notifier:
+    filesystem:
+        filename: /config/notification
 
 log:
     level: info
