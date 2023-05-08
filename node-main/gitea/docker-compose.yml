@@ -27,6 +27,7 @@ services:
             - traefik.http.middlewares.gitea_headers.headers.stspreload=false
             - traefik.http.middlewares.gitea_headers.headers.stsseconds=31536000
             - traefik.http.routers.gitea.middlewares=authelia@docker,gitea_headers
+            - traefik.http.services.gitea-websecure.loadbalancer.passhostheader=true
             - traefik.http.services.gitea-websecure.loadbalancer.server.port=3000
             - traefik.tcp.routers.gitea.rule=HostSNI(`*`)
             - traefik.tcp.routers.gitea.entrypoints=ssh
