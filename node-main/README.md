@@ -31,6 +31,7 @@ lxc config device add node-main c_data disk source=/mnt/c_data path=/mnt/c_data
 # create container dirs
 mkdir -p -m 777 /mnt/c_data/traefik
 mkdir -p -m 777 /mnt/c_data/authelia
+mkdir -p -m 777 /mnt/c_data/gotify
 mkdir -p -m 777 /mnt/c_data/heimdall
 mkdir -p -m 777 /mnt/c_data/gitea
 mkdir -p -m 777 /mnt/c_data/nextcloud
