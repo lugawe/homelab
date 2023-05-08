@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+    gotify:
+        image: gotify/server
+        container_name: gotify
+        restart: unless-stopped
+        volumes:
+            - /mnt/c_data/gotify/app:/app/data
+        ports:
+            - 4000:80
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.gotify.rule=Host(`${GOTIFY_DOMAIN}`)
+            - traefik.http.routers.gotify.entrypoints=websecure
+            - traefik.http.routers.gotify.tls=true
+            - traefik.http.routers.gotify.tls.certresolver=prod
+            - traefik.http.middlewares.gotify_headers.headers.forcestsheader=true
+            - traefik.http.middlewares.gotify_headers.headers.stsincludesubdomains=true
+            - traefik.http.middlewares.gotify_headers.headers.stspreload=false
+            - traefik.http.middlewares.gotify_headers.headers.stsseconds=31536000
+            - traefik.http.routers.heimdall.middlewares=authelia@docker,gotify_headers
+        environment:
+            - TZ=Europe/Berlin
