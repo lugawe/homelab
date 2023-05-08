@@ -6,6 +6,8 @@ services:
         container_name: gotify
         restart: unless-stopped
         volumes:
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
             - /mnt/c_data/gotify/app:/app/data
         ports:
             - 4000:80
