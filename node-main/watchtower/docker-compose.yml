@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+    watchtower:
+        image: containrrr/watchtower:latest
+        container_name: watchtower
+        restart: unless-stopped
+        command:
+            - "--cleanup"
+            - "--include-restarting"
+            - "--rolling-restart"
+            - "--interval=43200"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        networks:
+            - traefik_net
+        environment:
+            - TZ=Europe/Berlin
+            - WATCHTOWER_NOTIFICATIONS_LEVEL=info
+            - WATCHTOWER_NOTIFICATIONS=gotify
+            - WATCHTOWER_NOTIFICATION_GOTIFY_URL=https://${GOTIFY_DOMAIN}"
+            - WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN=secret
+
+networks:
+    traefik_net:
+        external: true
