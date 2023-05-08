@@ -11,7 +11,7 @@ services:
         volumes:
             - /mnt/c_data/nextcloud/app:/var/www/html
         ports:
-            - 4002:443
+            - 4003:443
         networks:
             - nextcloud_net
             - traefik_net
