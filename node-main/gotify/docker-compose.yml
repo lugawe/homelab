@@ -9,6 +9,8 @@ services:
             - /mnt/c_data/gotify/app:/app/data
         ports:
             - 4000:80
+        networks:
+            - traefik_net
         labels:
             - traefik.enable=true
             - traefik.http.routers.gotify.rule=Host(`${GOTIFY_DOMAIN}`)
@@ -19,6 +21,12 @@ services:
             - traefik.http.middlewares.gotify_headers.headers.stsincludesubdomains=true
             - traefik.http.middlewares.gotify_headers.headers.stspreload=false
             - traefik.http.middlewares.gotify_headers.headers.stsseconds=31536000
-            - traefik.http.routers.heimdall.middlewares=authelia@docker,gotify_headers
+            - traefik.http.routers.gotify.middlewares=authelia@docker,gotify_headers
+            - traefik.http.services.gotify-websecure.loadbalancer.passhostheader=true
+            - traefik.http.services.gotify-websecure.loadbalancer.server.port=80
         environment:
             - TZ=Europe/Berlin
+
+networks:
+    traefik_net:
+        external: true
