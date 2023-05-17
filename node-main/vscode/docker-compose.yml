@@ -2,7 +2,7 @@ version: "3"
 
 services:
     vscode:
-        image: lscr.io/linuxserver/openvscode-server:latest
+        image: lscr.io/linuxserver/code-server:latest
         container_name: vscode
         restart: unless-stopped
         volumes:
@@ -10,7 +10,7 @@ services:
             - /etc/localtime:/etc/localtime:ro
             - /mnt/c_data/vscode/app:/config
         ports:
-            - 4003:3000
+            - 4003:8443
         networks:
             - traefik_net
         labels:
@@ -26,6 +26,7 @@ services:
             - traefik.http.routers.vscode.middlewares=authelia@docker,vscode_headers
         environment:
             - TZ=Europe/Berlin
+            - PROXY_DOMAIN=${VSCODE_DOMAIN}
             - SUDO_PASSWORD=${VSCODE_SUDO_PASSWORD}
 
 networks:
