@@ -59,11 +59,9 @@ regulation:
 totp:
     disable: false
     issuer: domain
-    algorithm: sha1
-    digits: 6
-    period: 30
-    skew: 1
-    secret_size: 32
+
+webauthn:
+    disable: true
 
 storage:
     local:
