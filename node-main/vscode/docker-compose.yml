@@ -26,6 +26,7 @@ services:
             - traefik.http.routers.vscode.middlewares=authelia@docker,vscode_headers
         environment:
             - TZ=Europe/Berlin
+            - SUDO_PASSWORD=${VSCODE_SUDO_PASSWORD}
 
 networks:
     traefik_net:
