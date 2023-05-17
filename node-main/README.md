@@ -34,6 +34,7 @@ mkdir -p -m 777 /mnt/c_data/authelia
 mkdir -p -m 777 /mnt/c_data/gotify
 mkdir -p -m 777 /mnt/c_data/heimdall
 mkdir -p -m 777 /mnt/c_data/gitea
+mkdir -p -m 777 /mnt/c_data/vscode
 mkdir -p -m 777 /mnt/c_data/nextcloud
 mkdir -p -m 777 /mnt/c_data/vaultwarden
 mkdir -p -m 777 /mnt/c_data/jellyfin

@@ -23,6 +23,8 @@ access_control:
           policy: one_factor
         - domain: git.domain
           policy: two_factor
+        - domain: code.domain
+          policy: two_factor
         - domain: nextcloud.domain
           policy: two_factor
         - domain: vaultwarden.domain
