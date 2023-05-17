@@ -5,8 +5,6 @@ services:
         image: gitpod/openvscode-server:latest
         container_name: vscode
         restart: unless-stopped
-        command:
-            - "--init"
         volumes:
             - /mnt/c_data/vscode/app:/home/workspace
         ports:
