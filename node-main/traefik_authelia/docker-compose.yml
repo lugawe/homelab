@@ -5,6 +5,8 @@ services:
         image: traefik:latest
         container_name: traefik
         restart: unless-stopped
+        depends_on:
+            - authelia
         command:
             - "--providers.docker"
             - "--providers.docker.exposedbydefault=false"
@@ -17,6 +19,19 @@ services:
             - "--certificatesresolvers.prod.acme.storage=/letsencrypt/acme.json"
             - "--certificatesresolvers.prod.acme.tlschallenge=true"
             - "--certificatesresolvers.prod.acme.email=${TRAEFIK_ACME_EMAIL}"
+            - "--api.dashboard=true"
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)
+            - traefik.http.routers.traefik.entrypoints=websecure
+            - traefik.http.routers.traefik.tls=true
+            - traefik.http.routers.traefik.tls.certresolver=prod
+            - traefik.http.middlewares.traefik_headers.headers.forcestsheader=true
+            - traefik.http.middlewares.traefik_headers.headers.stsincludesubdomains=true
+            - traefik.http.middlewares.traefik_headers.headers.stspreload=false
+            - traefik.http.middlewares.traefik_headers.headers.stsseconds=31536000
+            - traefik.http.routers.traefik.middlewares=authelia@docker,traefik_headers
+            - traefik.http.routers.traefik.service=api@internal
         volumes:
             - /etc/timezone:/etc/timezone:ro
             - /etc/localtime:/etc/localtime:ro
