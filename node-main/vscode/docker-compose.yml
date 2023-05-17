@@ -2,11 +2,13 @@ version: "3"
 
 services:
     vscode:
-        image: gitpod/openvscode-server:latest
+        image: lscr.io/linuxserver/openvscode-server:latest
         container_name: vscode
         restart: unless-stopped
         volumes:
-            - /mnt/c_data/vscode/app:/home/workspace
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
+            - /mnt/c_data/vscode/app:/config
         ports:
             - 4003:3000
         networks:
@@ -22,6 +24,8 @@ services:
             - traefik.http.middlewares.vscode_headers.headers.stspreload=false
             - traefik.http.middlewares.vscode_headers.headers.stsseconds=31536000
             - traefik.http.routers.vscode.middlewares=authelia@docker,vscode_headers
+        environment:
+            - TZ=Europe/Berlin
 
 networks:
     traefik_net:
