@@ -40,6 +40,6 @@ mkdir -p -m 777 /mnt/c_data/vaultwarden
 mkdir -p -m 777 /mnt/c_data/jellyfin
 
 # jellyfin
-lxc config device add node-main jellyfin14004 proxy listen=tcp:0.0.0.0:14004 connect=tcp:0.0.0.0:4004
+lxc config device add node-main jellyfin18096 proxy listen=tcp:0.0.0.0:18096 connect=tcp:0.0.0.0:18096
 lxc config device add node-main extern_disk disk source=/mnt/extern_disk path=/mnt/extern_disk
 ```

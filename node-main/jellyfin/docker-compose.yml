@@ -13,7 +13,7 @@ services:
             - /mnt/extern_disk/media/photos:/data/photos:ro
             - /mnt/extern_disk/media/other:/data/other:ro
         ports:
-            - 4006:8096
+            - 18096:8096
         networks:
             - traefik_net
         labels:
@@ -28,8 +28,6 @@ services:
             - traefik.http.middlewares.jellyfin_headers.headers.stsseconds=31536000
             - traefik.http.routers.jellyfin.middlewares=authelia@docker,jellyfin_headers
         environment:
-            - PUID=1000
-            - PGID=1000
             - TZ=Europe/Berlin
 
 networks:
