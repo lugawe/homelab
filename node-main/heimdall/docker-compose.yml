@@ -7,8 +7,6 @@ services:
         restart: unless-stopped
         volumes:
             - /mnt/c_data/heimdall/config:/config
-        ports:
-            - 4001:443
         networks:
             - traefik_net
         labels:

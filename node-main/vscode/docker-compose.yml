@@ -9,8 +9,6 @@ services:
             - /etc/timezone:/etc/timezone:ro
             - /etc/localtime:/etc/localtime:ro
             - /mnt/c_data/vscode/app:/config
-        ports:
-            - 4003:8443
         networks:
             - traefik_net
         labels:

@@ -10,8 +10,6 @@ services:
             - nextcloud-redis
         volumes:
             - /mnt/c_data/nextcloud/app:/var/www/html
-        ports:
-            - 4004:443
         networks:
             - nextcloud_net
             - traefik_net

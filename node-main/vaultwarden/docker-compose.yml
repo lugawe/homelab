@@ -7,8 +7,6 @@ services:
         restart: unless-stopped
         volumes:
             - /mnt/c_data/vaultwarden/app:/data
-        ports:
-            - 4005:80
         networks:
             - traefik_net
         labels:

@@ -11,8 +11,6 @@ services:
             - /etc/timezone:/etc/timezone:ro
             - /etc/localtime:/etc/localtime:ro
             - /mnt/c_data/gitea/app:/data
-        ports:
-            - 4002:3000
         networks:
             - gitea_net
             - traefik_net
