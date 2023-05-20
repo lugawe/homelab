@@ -71,7 +71,7 @@ services:
             - traefik.http.middlewares.authelia_headers.headers.stspreload=false
             - traefik.http.middlewares.authelia_headers.headers.stsseconds=31536000
             - traefik.http.middlewares.authelia_headers.headers.framedeny=true
-            - traefik.http.routers.authelia.middlewares=authelia_headers
+            - traefik.http.routers.authelia.middlewares=authelia@docker,authelia_headers
         environment:
             - TZ=Europe/Berlin
 
