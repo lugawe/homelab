@@ -9,7 +9,7 @@ services:
             - "--cleanup"
             - "--include-restarting"
             - "--rolling-restart"
-            - "--interval=43200"
+            - "--schedule=0 0 4 * * *"
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         networks:
