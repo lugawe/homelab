@@ -18,7 +18,7 @@ services:
             - TZ=Europe/Berlin
             - WATCHTOWER_NOTIFICATIONS_LEVEL=info
             - WATCHTOWER_NOTIFICATIONS=gotify
-            - WATCHTOWER_NOTIFICATION_GOTIFY_URL=https://${GOTIFY_DOMAIN}
+            - WATCHTOWER_NOTIFICATION_GOTIFY_URL=http://gotify:80
             - WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN=${GOTIFY_TOKEN}
 
 networks:
