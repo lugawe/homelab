@@ -1,0 +1,64 @@
+version: "3"
+
+services:
+    nextcloud:
+        image: nextcloud:latest
+        container_name: nextcloud
+        restart: unless-stopped
+        depends_on:
+            - nextcloud-database
+            - nextcloud-redis
+        volumes:
+            - /mnt/c_data/nextcloud/app:/var/www/html
+        networks:
+            - nextcloud_net
+            - traefik_net
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.nextcloud.rule=Host(`${NEXTCLOUD_DOMAIN}`)
+            - traefik.http.routers.nextcloud.entryPoints=websecure
+            - traefik.http.routers.nextcloud.tls=true
+            - traefik.http.routers.nextcloud.tls.certResolver=prod
+            - traefik.http.middlewares.nextcloud_headers.headers.forceSTSHeader=true
+            - traefik.http.middlewares.nextcloud_headers.headers.stsIncludeSubdomains=true
+            - traefik.http.middlewares.nextcloud_headers.headers.stsPreload=false
+            - traefik.http.middlewares.nextcloud_headers.headers.stsSeconds=31536000
+            - traefik.http.routers.nextcloud.middlewares=authelia@docker,nextcloud_headers
+        environment:
+            - OVERWRITEPROTOCOL=https
+            - OVERWRITECLIURL=https://${NEXTCLOUD_DOMAIN}
+            - OVERWRITEHOST=${NEXTCLOUD_DOMAIN}
+            - POSTGRES_HOST=nextcloud-database
+            - POSTGRES_DB=nextcloud
+            - POSTGRES_USER=nextcloud
+            - POSTGRES_PASSWORD=${NEXTCLOUD_POSTGRES_PASSWORD}
+            - REDIS_HOST=nextcloud-redis
+            - REDIS_HOST_PASSWORD=${NEXTCLOUD_REDIS_PASSWORD}
+
+    nextcloud-database:
+        image: postgres:16-alpine
+        container_name: nextcloud-database
+        restart: unless-stopped
+        volumes:
+            - /mnt/c_data/nextcloud/database:/var/lib/postgresql/data
+        networks:
+            - nextcloud_net
+        environment:
+            - POSTGRES_DB=nextcloud
+            - POSTGRES_USER=nextcloud
+            - POSTGRES_PASSWORD=${NEXTCLOUD_POSTGRES_PASSWORD}
+
+    nextcloud-redis:
+        image: redis:7-alpine
+        container_name: nextcloud-redis
+        restart: unless-stopped
+        command: redis-server --requirepass ${NEXTCLOUD_REDIS_PASSWORD}
+        networks:
+            - nextcloud_net
+
+networks:
+    nextcloud_net:
+        name: nextcloud_net
+        external: false
+    traefik_net:
+        external: true
