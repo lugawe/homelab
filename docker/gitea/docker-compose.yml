@@ -1,0 +1,60 @@
+version: "3"
+
+services:
+    gitea:
+        image: gitea/gitea:latest
+        container_name: gitea
+        restart: unless-stopped
+        depends_on:
+            - gitea-database
+        volumes:
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
+            - /mnt/c_data/gitea/app:/data
+        networks:
+            - gitea_net
+            - traefik_net
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.gitea.rule=Host(`${GITEA_DOMAIN}`)
+            - traefik.http.routers.gitea.entryPoints=websecure
+            - traefik.http.routers.gitea.tls=true
+            - traefik.http.routers.gitea.tls.certResolver=prod
+            - traefik.http.middlewares.gitea_headers.headers.forceSTSHeader=true
+            - traefik.http.middlewares.gitea_headers.headers.stsIncludeSubdomains=true
+            - traefik.http.middlewares.gitea_headers.headers.stsPreload=false
+            - traefik.http.middlewares.gitea_headers.headers.stsSeconds=31536000
+            - traefik.http.routers.gitea.middlewares=authelia@docker,gitea_headers
+            - traefik.http.services.gitea-websecure.loadBalancer.passHostHeader=true
+            - traefik.http.services.gitea-websecure.loadBalancer.server.port=3000
+            - traefik.tcp.routers.gitea.rule=HostSNI(`*`)
+            - traefik.tcp.routers.gitea.entryPoints=ssh
+            - traefik.tcp.services.gitea-ssh.loadBalancer.server.port=22
+        environment:
+            - PROTOCOL=https
+            - ROOT_URL=https://${GITEA_DOMAIN}
+            - GITEA__database__DB_TYPE=postgres
+            - GITEA__database__HOST=gitea-database
+            - GITEA__database__NAME=gitea
+            - GITEA__database__USER=gitea
+            - GITEA__database__PASSWD=${GITEA_POSTGRES_PASSWORD}
+
+    gitea-database:
+        image: postgres:16-alpine
+        container_name: gitea-database
+        restart: unless-stopped
+        volumes:
+            - /mnt/c_data/gitea/database:/var/lib/postgresql/data
+        networks:
+            - gitea_net
+        environment:
+            - POSTGRES_DB=gitea
+            - POSTGRES_USER=gitea
+            - POSTGRES_PASSWORD=${GITEA_POSTGRES_PASSWORD}
+
+networks:
+    gitea_net:
+        name: gitea_net
+        external: false
+    traefik_net:
+        external: true
