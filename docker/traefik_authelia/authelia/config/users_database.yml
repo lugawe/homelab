@@ -1,0 +1,21 @@
+users:
+    admin:
+        password: $argon2id$v=19$m=1048576,t=2,p=4$AGzq/AawZbL/fI/oIcDzBg$wKJegwxU/CoIcPn5AQT63ick78bPpYWw9gVS+GHLCO0
+        displayname: admin
+        email: invalid
+        groups:
+            - admins
+            - dev
+        disabled: true
+    guest:
+        password: $argon2id$v=19$m=1048576,t=2,p=4$ARMy+ZBRJSgUciik81lpDg$IL/4iqQWeI4uguRpO0zbDhurzzhQrDwodkgRoZj4gsM
+        displayname: guest
+        email: invalid
+        groups: []
+        disabled: true
+    luwe:
+        password: $argon2id$v=19$m=1048576,t=2,p=4$yKtBSZLpL5maRIVYLks21Q$t7UH4QMYXpVFW4x6M/SHJSmJklM+EWZivk6TGDl2M8o
+        displayname: luwe
+        email: invalid
+        groups: []
+        disabled: true

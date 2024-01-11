@@ -1,0 +1,85 @@
+version: "3"
+
+services:
+    traefik:
+        image: traefik:latest
+        container_name: traefik
+        restart: unless-stopped
+        depends_on:
+            - authelia
+        volumes:
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - /mnt/c_data/traefik/config:/etc/traefik
+            - /mnt/c_data/traefik/certificates:/certificates
+            - /mnt/c_data/traefik/logs:/logs
+        ports:
+            - 80:80
+            - 443:443
+            - 2222:2222
+        networks:
+            - traefik_net
+        command:
+            - "--providers.docker"
+            - "--providers.docker.exposedByDefault=false"
+            - "--providers.docker.network=traefik_net"
+            - "--entryPoints.web.address=:80"
+            - "--entryPoints.web.http.redirections.entryPoint.to=websecure"
+            - "--entryPoints.web.http.redirections.entryPoint.scheme=https"
+            - "--entryPoints.websecure.address=:443"
+            - "--entryPoints.ssh.address=:2222"
+            - "--certificatesResolvers.prod.acme.storage=/certificates/acme.json"
+            - "--certificatesResolvers.prod.acme.tlsChallenge=true"
+            - "--certificatesResolvers.prod.acme.email=${TRAEFIK_ACME_EMAIL}"
+            - "--accessLog"
+            - "--accessLog.filePath=/logs/access.log"
+            - "--api.dashboard"
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)
+            - traefik.http.routers.traefik.entryPoints=websecure
+            - traefik.http.routers.traefik.tls=true
+            - traefik.http.routers.traefik.tls.certResolver=prod
+            - traefik.http.middlewares.traefik_headers.headers.forceSTSHeader=true
+            - traefik.http.middlewares.traefik_headers.headers.stsIncludeSubdomains=true
+            - traefik.http.middlewares.traefik_headers.headers.stsPreload=false
+            - traefik.http.middlewares.traefik_headers.headers.stsSeconds=31536000
+            - traefik.http.routers.traefik.middlewares=authelia@docker,traefik_headers
+            - traefik.http.routers.traefik.service=api@internal
+        environment:
+            - TZ=Europe/Berlin
+
+    authelia:
+        image: authelia/authelia:latest
+        container_name: authelia
+        restart: unless-stopped
+        volumes:
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
+            - /mnt/c_data/authelia/config:/config
+        ports:
+            - 9091:9091
+        networks:
+            - traefik_net
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.authelia.rule=Host(`${AUTHELIA_DOMAIN}`)
+            - traefik.http.routers.authelia.entryPoints=websecure
+            - traefik.http.routers.authelia.tls=true
+            - traefik.http.routers.authelia.tls.certResolver=prod
+            - traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/verify?rd=https%3A%2F%2F${AUTHELIA_DOMAIN}
+            - traefik.http.middlewares.authelia.forwardAuth.trustForwardHeader=true
+            - traefik.http.middlewares.authelia.forwardAuth.authResponseHeaders=Remote-User,Remote-Name,Remote-Email,Remote-Groups
+            - traefik.http.middlewares.authelia_headers.headers.forceSTSHeader=true
+            - traefik.http.middlewares.authelia_headers.headers.stsIncludeSubdomains=true
+            - traefik.http.middlewares.authelia_headers.headers.stsPreload=false
+            - traefik.http.middlewares.authelia_headers.headers.stsSeconds=31536000
+            - traefik.http.middlewares.authelia_headers.headers.frameDeny=true
+            - traefik.http.routers.authelia.middlewares=authelia@docker,authelia_headers
+        environment:
+            - TZ=Europe/Berlin
+
+networks:
+    traefik_net:
+        name: traefik_net

@@ -1,0 +1,72 @@
+theme: auto
+
+jwt_secret: secret
+
+default_redirection_url: https://auth.domain
+
+default_2fa_method: totp
+
+server:
+    host: 0.0.0.0
+    port: 9091
+
+access_control:
+    default_policy: deny
+    rules:
+        - domain: auth.domain
+          policy: bypass
+        - domain: traefik.domain
+          policy: one_factor
+        - domain: vaultwarden.domain
+          policy: two_factor
+        - domain: jellyfin.domain
+          policy: two_factor
+        - domain: git.domain
+          policy: bypass
+        - domain: nextcloud.domain
+          policy: bypass
+
+authentication_backend:
+    refresh_interval: 5m
+    file:
+        path: /config/users_database.yml
+        password:
+            algorithm: argon2id
+            iterations: 2
+            memory: 1024
+            parallelism: 4
+            key_length: 32
+            salt_length: 16
+    password_reset:
+        disable: true
+
+session:
+    name: authelia_session
+    secret: secret
+    expiration: 3600
+    inactivity: 300
+    domain: domain
+
+regulation:
+    max_retries: 2
+    find_time: 5m
+    ban_time: 24h
+
+totp:
+    disable: false
+    issuer: domain
+
+webauthn:
+    disable: true
+
+storage:
+    local:
+        path: /config/db.sqlite3
+    encryption_key: secret
+
+notifier:
+    filesystem:
+        filename: /config/notification
+
+log:
+    level: info
