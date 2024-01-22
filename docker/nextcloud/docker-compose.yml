@@ -28,6 +28,7 @@ services:
             - OVERWRITEPROTOCOL=https
             - OVERWRITECLIURL=https://${NEXTCLOUD_DOMAIN}
             - OVERWRITEHOST=${NEXTCLOUD_DOMAIN}
+            - TRUSTED_PROXIES=${NEXTCLOUD_DOMAIN}
             - POSTGRES_HOST=nextcloud-database
             - POSTGRES_DB=nextcloud
             - POSTGRES_USER=nextcloud
