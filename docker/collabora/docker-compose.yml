@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+    collabora:
+        image: collabora/code:latest
+        container_name: collabora
+        restart: unless-stopped
+        networks:
+            - traefik_net
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.collabora.rule=Host(`${COLLABORA_DOMAIN}`)
+            - traefik.http.routers.collabora.entryPoints=websecure
+            - traefik.http.routers.collabora.tls=true
+            - traefik.http.routers.collabora.tls.certResolver=prod
+            - traefik.http.middlewares.collabora_headers.headers.forceSTSHeader=true
+            - traefik.http.middlewares.collabora_headers.headers.stsIncludeSubdomains=true
+            - traefik.http.middlewares.collabora_headers.headers.stsPreload=false
+            - traefik.http.middlewares.collabora_headers.headers.stsSeconds=31536000
+            - traefik.http.routers.collabora.middlewares=authelia@docker,collabora_headers
+        environment:
+            - extra_params=--o:ssl.enable=false --o:ssl.termination=true
+
+networks:
+    traefik_net:
+        external: true

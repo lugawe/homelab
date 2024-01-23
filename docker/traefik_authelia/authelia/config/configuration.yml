@@ -23,6 +23,8 @@ access_control:
           policy: two_factor
         - domain: git.domain
           policy: bypass
+        - domain: collabora.domain
+          policy: bypass
         - domain: nextcloud.domain
           policy: bypass
 
