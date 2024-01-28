@@ -13,3 +13,7 @@ echo \
 
 sudo apt update
 sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# usermod -aG docker $USER
+# systemctl disable docker.service
+# systemctl disable docker.socket
