@@ -25,11 +25,7 @@ services:
             - traefik.http.middlewares.gitea_headers.headers.stsPreload=false
             - traefik.http.middlewares.gitea_headers.headers.stsSeconds=31536000
             - traefik.http.routers.gitea.middlewares=authelia@docker,gitea_headers
-            - traefik.http.services.gitea-websecure.loadBalancer.passHostHeader=true
             - traefik.http.services.gitea-websecure.loadBalancer.server.port=3000
-            - traefik.tcp.routers.gitea.rule=HostSNI(`*`)
-            - traefik.tcp.routers.gitea.entryPoints=ssh
-            - traefik.tcp.services.gitea-ssh.loadBalancer.server.port=22
         environment:
             - PROTOCOL=https
             - ROOT_URL=https://${GITEA_DOMAIN}
