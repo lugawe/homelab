@@ -9,4 +9,6 @@ if [ ! -d $dir_name ]; then
 fi
 
 sudo chown -R $USER: $dir_name
-sudo chmod -R 740 $dir_name
+
+sudo find $dir_name -type d -exec chmod 740 {} \;
+sudo find $dir_name -type f -exec chmod 640 {} \;
