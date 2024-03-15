@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+    grafana:
+        image: grafana/grafana:latest
+        container_name: grafana
+        restart: unless-stopped
+        user: "1000:1000"
+        depends_on:
+            - prometheus
+        volumes:
+            - /mnt/c_data/stats/grafana/app:/var/lib/grafana
+        networks:
+            - stats_net
+            - traefik_net
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.grafana.rule=Host(`${GRAFANA_DOMAIN}`)
+            - traefik.http.routers.grafana.entryPoints=websecure
+            - traefik.http.routers.grafana.tls=true
+            - traefik.http.routers.grafana.tls.certResolver=prod
+            - traefik.http.middlewares.grafana_headers.headers.forceSTSHeader=true
+            - traefik.http.middlewares.grafana_headers.headers.stsIncludeSubdomains=true
+            - traefik.http.middlewares.grafana_headers.headers.stsPreload=false
+            - traefik.http.middlewares.grafana_headers.headers.stsSeconds=31536000
+            - traefik.http.routers.grafana.middlewares=authelia@docker,grafana_headers
+        environment:
+            - OVERWRITEPROTOCOL=https
+
+    prometheus:
+        image: prom/prometheus:latest
+        container_name: prometheus
+        restart: unless-stopped
+        user: "1000:1000"
+        volumes:
+            - /mnt/c_data/stats/prometheus/config:/etc/prometheus
+            - /mnt/c_data/stats/prometheus/database:/prometheus
+        ports:
+            - 11001:9090
+        networks:
+            - stats_net
+        command:
+            - "--config.file=/etc/prometheus/prometheus.yml"
+
+networks:
+    stats_net:
+        name: stats_net
+    traefik_net:
+        external: true
