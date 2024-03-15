@@ -5,6 +5,7 @@ services:
         image: gitea/gitea:latest
         container_name: gitea
         restart: unless-stopped
+        user: 1000:1000
         depends_on:
             - gitea-database
         volumes:
@@ -39,6 +40,7 @@ services:
         image: postgres:16-alpine
         container_name: gitea-database
         restart: unless-stopped
+        user: 1000:1000
         volumes:
             - /mnt/c_data/gitea/database:/var/lib/postgresql/data
         networks:

@@ -5,6 +5,7 @@ services:
         image: nextcloud:latest
         container_name: nextcloud
         restart: unless-stopped
+        user: 1000:1000
         depends_on:
             - nextcloud-database
             - nextcloud-redis
@@ -40,6 +41,7 @@ services:
         image: postgres:16-alpine
         container_name: nextcloud-database
         restart: unless-stopped
+        user: 1000:1000
         volumes:
             - /mnt/c_data/nextcloud/database:/var/lib/postgresql/data
         networks:
@@ -53,9 +55,10 @@ services:
         image: redis:7-alpine
         container_name: nextcloud-redis
         restart: unless-stopped
-        command: redis-server --requirepass ${NEXTCLOUD_REDIS_PASSWORD}
+        user: 1000:1000
         networks:
             - nextcloud_net
+        command: "redis-server --requirepass ${NEXTCLOUD_REDIS_PASSWORD}"
 
 networks:
     nextcloud_net:

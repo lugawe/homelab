@@ -5,6 +5,7 @@ services:
         image: jellyfin/jellyfin:latest
         container_name: jellyfin
         restart: unless-stopped
+        user: 1000:1000
         volumes:
             - /mnt/c_data/jellyfin/config:/config
             - /mnt/c_data/jellyfin/cache:/cache
@@ -23,7 +24,7 @@ services:
         networks:
             - traefik_net
         labels:
-            - traefik.enable=false
+            - traefik.enable=true
             - traefik.http.routers.jellyfin.rule=Host(`${JELLYFIN_DOMAIN}`)
             - traefik.http.routers.jellyfin.entryPoints=websecure
             - traefik.http.routers.jellyfin.tls=true

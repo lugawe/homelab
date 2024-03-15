@@ -5,6 +5,7 @@ services:
         image: vaultwarden/server:latest-alpine
         container_name: vaultwarden
         restart: unless-stopped
+        user: 1000:1000
         volumes:
             - /mnt/c_data/vaultwarden/app:/data
         networks:
