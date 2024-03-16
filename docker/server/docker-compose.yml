@@ -21,6 +21,7 @@ services:
             - 2222:2222
         networks:
             - traefik_net
+            - stats_net
         command:
             - "--providers.docker"
             - "--providers.docker.exposedByDefault=false"
@@ -35,6 +36,7 @@ services:
             - "--certificatesResolvers.prod.acme.email=${TRAEFIK_ACME_EMAIL}"
             - "--accessLog"
             - "--accessLog.filePath=/var/logs/access.log"
+            - "--metrics.prometheus"
             - "--api.dashboard"
         labels:
             - traefik.enable=true
@@ -85,3 +87,5 @@ services:
 networks:
     traefik_net:
         name: traefik_net
+    stats_net:
+        external: true
