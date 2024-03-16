@@ -38,6 +38,21 @@ services:
         command:
             - "--config.file=/etc/prometheus/prometheus.yml"
 
+    prom-node-exporter:
+        image: prom/node-exporter:latest
+        container_name: prom-node-exporter
+        restart: unless-stopped
+        volumes:
+            - /:/host/rootfs:ro
+            - /proc:/host/proc:ro
+            - /sys:/host/sys:ro
+        networks:
+            - stats_net
+        command:
+            - "--path.rootfs=/host/rootfs"
+            - "--path.procfs=/host/proc"
+            - "--path.sysfs=/host/sys"
+
 networks:
     stats_net:
         name: stats_net
