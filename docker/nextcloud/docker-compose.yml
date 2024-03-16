@@ -2,13 +2,12 @@ version: "3"
 
 services:
     nextcloud:
-        image: nextcloud:latest
+        image: nextcloud:28
         container_name: nextcloud
         restart: unless-stopped
-        user: 1000:1000
         depends_on:
             - nextcloud-database
-            - nextcloud-redis
+            - nextcloud-cache
         volumes:
             - /mnt/c_data/nextcloud/app:/var/www/html
         networks:
@@ -34,14 +33,13 @@ services:
             - POSTGRES_DB=nextcloud
             - POSTGRES_USER=nextcloud
             - POSTGRES_PASSWORD=${NEXTCLOUD_POSTGRES_PASSWORD}
-            - REDIS_HOST=nextcloud-redis
+            - REDIS_HOST=nextcloud-cache
             - REDIS_HOST_PASSWORD=${NEXTCLOUD_REDIS_PASSWORD}
 
     nextcloud-database:
         image: postgres:16-alpine
         container_name: nextcloud-database
         restart: unless-stopped
-        user: 1000:1000
         volumes:
             - /mnt/c_data/nextcloud/database:/var/lib/postgresql/data
         networks:
@@ -51,11 +49,10 @@ services:
             - POSTGRES_USER=nextcloud
             - POSTGRES_PASSWORD=${NEXTCLOUD_POSTGRES_PASSWORD}
 
-    nextcloud-redis:
+    nextcloud-cache:
         image: redis:7-alpine
-        container_name: nextcloud-redis
+        container_name: nextcloud-cache
         restart: unless-stopped
-        user: 1000:1000
         networks:
             - nextcloud_net
         command: "redis-server --requirepass ${NEXTCLOUD_REDIS_PASSWORD}"
