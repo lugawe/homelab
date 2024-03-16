@@ -24,8 +24,6 @@ services:
             - traefik.http.middlewares.grafana_headers.headers.stsPreload=false
             - traefik.http.middlewares.grafana_headers.headers.stsSeconds=31536000
             - traefik.http.routers.grafana.middlewares=authelia@docker,grafana_headers
-        environment:
-            - OVERWRITEPROTOCOL=https
 
     prometheus:
         image: prom/prometheus:latest
