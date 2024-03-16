@@ -12,9 +12,9 @@ services:
             - /etc/timezone:/etc/timezone:ro
             - /etc/localtime:/etc/localtime:ro
             - /var/run/docker.sock:/var/run/docker.sock:ro
-            - /mnt/c_data/traefik/config:/etc/traefik
-            - /mnt/c_data/traefik/certificates:/certificates
-            - /mnt/c_data/traefik/logs:/logs
+            - /mnt/c_data/server/traefik/config:/etc/traefik
+            - /mnt/c_data/server/traefik/certificates:/certificates
+            - /mnt/c_data/server/traefik/logs:/var/logs
         ports:
             - 80:80
             - 443:443
@@ -34,7 +34,7 @@ services:
             - "--certificatesResolvers.prod.acme.tlsChallenge=true"
             - "--certificatesResolvers.prod.acme.email=${TRAEFIK_ACME_EMAIL}"
             - "--accessLog"
-            - "--accessLog.filePath=/logs/access.log"
+            - "--accessLog.filePath=/var/logs/access.log"
             - "--api.dashboard"
         labels:
             - traefik.enable=true
@@ -59,7 +59,7 @@ services:
         volumes:
             - /etc/timezone:/etc/timezone:ro
             - /etc/localtime:/etc/localtime:ro
-            - /mnt/c_data/authelia/config:/config
+            - /mnt/c_data/server/authelia/config:/config
         ports:
             - 9091:9091
         networks:
