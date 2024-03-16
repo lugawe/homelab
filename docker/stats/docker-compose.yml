@@ -33,8 +33,6 @@ services:
         volumes:
             - /mnt/c_data/stats/prometheus/config:/etc/prometheus
             - /mnt/c_data/stats/prometheus/database:/prometheus
-        ports:
-            - 11001:9090
         networks:
             - stats_net
         command:
