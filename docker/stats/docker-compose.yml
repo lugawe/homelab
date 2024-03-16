@@ -55,6 +55,6 @@ services:
 
 networks:
     stats_net:
-        name: stats_net
+        external: true
     traefik_net:
         external: true

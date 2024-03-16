@@ -88,4 +88,4 @@ networks:
     traefik_net:
         name: traefik_net
     stats_net:
-        external: true
+        name: stats_net
