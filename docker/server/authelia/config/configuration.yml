@@ -15,9 +15,9 @@ access_control:
         - domain: auth.domain
           policy: bypass
         - domain: traefik.domain
-          policy: one_factor
+          policy: two_factor
         - domain: grafana.domain
-          policy: one_factor
+          policy: two_factor
         - domain: vaultwarden.domain
           policy: two_factor
         - domain: jellyfin.domain
