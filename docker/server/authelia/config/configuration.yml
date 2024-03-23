@@ -22,7 +22,7 @@ access_control:
           policy: two_factor
         - domain: jellyfin.domain
           policy: two_factor
-        - domain: git.domain
+        - domain: gitea.domain
           policy: bypass
         - domain: collabora.domain
           policy: bypass
