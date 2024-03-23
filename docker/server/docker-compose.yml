@@ -5,7 +5,6 @@ services:
         image: traefik:latest
         container_name: traefik
         restart: unless-stopped
-        user: 1000:1000
         depends_on:
             - authelia
         volumes:
@@ -57,7 +56,6 @@ services:
         image: authelia/authelia:latest
         container_name: authelia
         restart: unless-stopped
-        user: 1000:1000
         volumes:
             - /etc/timezone:/etc/timezone:ro
             - /etc/localtime:/etc/localtime:ro
