@@ -37,6 +37,8 @@ services:
             - stats_net
         command:
             - "--config.file=/etc/prometheus/prometheus.yml"
+            - "--storage.tsdb.path=/prometheus"
+            - "--storage.tsdb.retention.time=28d"
 
     prom-node-exporter:
         image: prom/node-exporter:latest
