@@ -12,15 +12,12 @@ services:
             - /mnt/extern/media/movies:/data/movies:ro
             - /mnt/extern/media/shows:/data/shows:ro
             - /mnt/extern/media/videos:/data/videos:ro
-            - /mnt/extern/media/photos:/data/photos:ro
             - /mnt/extern/media/other:/data/other:ro
         devices:
             - /dev/dri:/dev/dri
             - /dev/dri/card0:/dev/dri/card0
             - /dev/dri/card1:/dev/dri/card1
             - /dev/dri/renderD128:/dev/dri/renderD128
-        ports:
-            - 18096:8096
         networks:
             - traefik_net
         labels:
