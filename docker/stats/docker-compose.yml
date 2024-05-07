@@ -41,7 +41,7 @@ services:
             - "--storage.tsdb.retention.time=28d"
 
     prom-node-exporter:
-        image: prom/node-exporter:v1.7.0
+        image: prom/node-exporter:v1.8.0
         container_name: prom-node-exporter
         restart: unless-stopped
         volumes:
