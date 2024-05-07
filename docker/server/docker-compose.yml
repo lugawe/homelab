@@ -20,7 +20,7 @@ services:
             - 2222:2222
         networks:
             - traefik_net
-            - stats_net
+            - monitoring_net
         command:
             - "--providers.docker"
             - "--providers.docker.exposedByDefault=false"
@@ -84,5 +84,5 @@ services:
 networks:
     traefik_net:
         name: traefik_net
-    stats_net:
-        name: stats_net
+    monitoring_net:
+        name: monitoring_net

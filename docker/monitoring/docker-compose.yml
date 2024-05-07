@@ -9,9 +9,9 @@ services:
         depends_on:
             - prometheus
         volumes:
-            - /mnt/c_data/stats/grafana/app:/var/lib/grafana
+            - /mnt/c_data/monitoring/grafana/app:/var/lib/grafana
         networks:
-            - stats_net
+            - monitoring_net
             - traefik_net
         labels:
             - traefik.enable=true
@@ -31,10 +31,10 @@ services:
         restart: unless-stopped
         user: 1000:1000
         volumes:
-            - /mnt/c_data/stats/prometheus/config:/etc/prometheus
-            - /mnt/c_data/stats/prometheus/database:/prometheus
+            - /mnt/c_data/monitoring/prometheus/config:/etc/prometheus
+            - /mnt/c_data/monitoring/prometheus/database:/prometheus
         networks:
-            - stats_net
+            - monitoring_net
         command:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus"
@@ -49,7 +49,7 @@ services:
             - /proc:/host/proc:ro
             - /sys:/host/sys:ro
         networks:
-            - stats_net
+            - monitoring_net
         command:
             - "--path.rootfs=/host/rootfs"
             - "--path.procfs=/host/proc"
@@ -65,10 +65,10 @@ services:
             - /var/run:/var/run:ro
             - /var/lib/docker/:/var/lib/docker:ro
         networks:
-            - stats_net
+            - monitoring_net
 
 networks:
-    stats_net:
+    monitoring_net:
         external: true
     traefik_net:
         external: true
