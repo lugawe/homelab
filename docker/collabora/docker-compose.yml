@@ -2,7 +2,7 @@
 
 services:
     collabora:
-        image: collabora/code:latest
+        image: collabora/code:24.04.2.1.1
         container_name: collabora
         restart: unless-stopped
         networks:
