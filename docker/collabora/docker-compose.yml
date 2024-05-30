@@ -20,6 +20,8 @@ services:
             - traefik.http.routers.collabora.middlewares=authelia@docker,collabora_headers
         environment:
             - extra_params=--o:ssl.enable=false --o:ssl.termination=true
+            - username=collabora
+            - password=${COLLABORA_PASSWORD}
 
 networks:
     traefik_net:
