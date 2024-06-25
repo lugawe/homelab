@@ -26,7 +26,7 @@ services:
             - traefik.http.routers.grafana.middlewares=authelia@docker,grafana_headers
 
     prometheus:
-        image: prom/prometheus:v2.52.0
+        image: prom/prometheus:v2.53.0
         container_name: prometheus
         restart: unless-stopped
         user: 1000:1000
@@ -41,7 +41,7 @@ services:
             - "--storage.tsdb.retention.time=28d"
 
     prom-node-exporter:
-        image: prom/node-exporter:v1.8.0
+        image: prom/node-exporter:v1.8.1
         container_name: prom-node-exporter
         restart: unless-stopped
         volumes:
