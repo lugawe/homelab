@@ -10,6 +10,7 @@ services:
             - nextcloud-cache
         volumes:
             - /mnt/c_data/nextcloud/app:/var/www/html
+            - /mnt/extern/data:/mnt/extern/data
         networks:
             - nextcloud_net
             - traefik_net
