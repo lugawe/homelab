@@ -40,19 +40,7 @@ services:
             - "--accessLog"
             - "--accessLog.filePath=/var/logs/access.log"
             - "--metrics.prometheus"
-            - "--api.dashboard"
-        labels:
-            - traefik.enable=true
-            - traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)
-            - traefik.http.routers.traefik.entryPoints=websecure
-            - traefik.http.routers.traefik.tls=true
-            - traefik.http.routers.traefik.tls.certResolver=prod
-            - traefik.http.middlewares.traefik_headers.headers.forceSTSHeader=true
-            - traefik.http.middlewares.traefik_headers.headers.stsIncludeSubdomains=true
-            - traefik.http.middlewares.traefik_headers.headers.stsPreload=false
-            - traefik.http.middlewares.traefik_headers.headers.stsSeconds=31536000
-            - traefik.http.routers.traefik.middlewares=authelia@docker,traefik_headers
-            - traefik.http.routers.traefik.service=api@internal
+            - "--api.dashboard=false"
         environment:
             - TZ=Europe/Berlin
 
@@ -87,13 +75,13 @@ services:
             - traefik_net
         labels:
             - traefik.enable=true
-            - traefik.http.routers.authelia.rule=Host(`${AUTHELIA_DOMAIN}`)
+            - traefik.http.routers.authelia.rule=Host(`${DOMAIN}`) && PathPrefix(`/auth`)
             - traefik.http.routers.authelia.entryPoints=websecure
             - traefik.http.routers.authelia.tls=true
-            - traefik.http.routers.authelia.tls.certResolver=prod
-            - traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/verify?rd=https%3A%2F%2F${AUTHELIA_DOMAIN}
+            - traefik.http.routers.authelia.tls.certResolver=ts
+            - traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/verify?rd=https://${DOMAIN}/auth
             - traefik.http.middlewares.authelia.forwardAuth.trustForwardHeader=true
-            - traefik.http.middlewares.authelia.forwardAuth.authResponseHeaders=Remote-User,Remote-Name,Remote-Email,Remote-Groups
+            - traefik.http.middlewares.authelia.forwardAuth.authResponseHeaders=Remote-User,Remote-Groups
             - traefik.http.middlewares.authelia_headers.headers.forceSTSHeader=true
             - traefik.http.middlewares.authelia_headers.headers.stsIncludeSubdomains=true
             - traefik.http.middlewares.authelia_headers.headers.stsPreload=false
