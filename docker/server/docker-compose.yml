@@ -6,6 +6,7 @@ services:
         container_name: traefik
         restart: unless-stopped
         depends_on:
+            - tailscale
             - authelia
         volumes:
             - /etc/timezone:/etc/timezone:ro
@@ -14,6 +15,8 @@ services:
             - /mnt/c_data/server/traefik/config:/etc/traefik
             - /mnt/c_data/server/traefik/certificates:/certificates
             - /mnt/c_data/server/traefik/logs:/var/logs
+            - /mnt/c_data/server/tailscale/data:/var/lib/tailscale:ro
+            - /mnt/c_data/server/tailscale:/var/run/tailscale:ro
         ports:
             - 80:80
             - 443:443
@@ -33,6 +36,7 @@ services:
             - "--certificatesResolvers.prod.acme.storage=/certificates/acme.json"
             - "--certificatesResolvers.prod.acme.tlsChallenge=true"
             - "--certificatesResolvers.prod.acme.email=${TRAEFIK_ACME_EMAIL}"
+            - "--certificatesResolvers.ts.tailscale=true"
             - "--accessLog"
             - "--accessLog.filePath=/var/logs/access.log"
             - "--metrics.prometheus"
@@ -51,6 +55,24 @@ services:
             - traefik.http.routers.traefik.service=api@internal
         environment:
             - TZ=Europe/Berlin
+
+    tailscale:
+        image: tailscale/tailscale:latest
+        container_name: tailscale
+        restart: unless-stopped
+        hostname: tailscale
+        network_mode: host
+        cap_add:
+            - net_admin
+            - net_raw
+        volumes:
+            - /dev/net/tun:/dev/net/tun:ro
+            - /mnt/c_data/server/tailscale/data:/var/lib/tailscale
+            - /mnt/c_data/server/tailscale:/var/run/tailscale
+        environment:
+            - TS_AUTHKEY=${TAILSCALE_AUTH_KEY}
+            - TS_STATE_DIR=/var/lib/tailscale
+            - TS_SOCKET=/var/run/tailscale/tailscaled.sock
 
     authelia:
         image: authelia/authelia:latest
