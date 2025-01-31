@@ -16,20 +16,20 @@ services:
             - traefik_net
         labels:
             - traefik.enable=true
-            - traefik.http.routers.nextcloud.rule=Host(`${NEXTCLOUD_DOMAIN}`)
+            - traefik.http.routers.nextcloud.rule=Host(`${DOMAIN}`) && PathPrefix(`/nextcloud`)
             - traefik.http.routers.nextcloud.entryPoints=websecure
             - traefik.http.routers.nextcloud.tls=true
-            - traefik.http.routers.nextcloud.tls.certResolver=prod
+            - traefik.http.routers.nextcloud.tls.certResolver=ts
             - traefik.http.middlewares.nextcloud_headers.headers.forceSTSHeader=true
             - traefik.http.middlewares.nextcloud_headers.headers.stsIncludeSubdomains=true
             - traefik.http.middlewares.nextcloud_headers.headers.stsPreload=false
             - traefik.http.middlewares.nextcloud_headers.headers.stsSeconds=31536000
-            - traefik.http.routers.nextcloud.middlewares=authelia@docker,nextcloud_headers
+            - traefik.http.middlewares.nextcloud_sp.stripPrefix.prefixes=/nextcloud
+            - traefik.http.routers.nextcloud.middlewares=authelia@docker,nextcloud_headers,nextcloud_sp
         environment:
             - OVERWRITEPROTOCOL=https
-            - OVERWRITECLIURL=https://${NEXTCLOUD_DOMAIN}
-            - OVERWRITEHOST=${NEXTCLOUD_DOMAIN}
-            - TRUSTED_PROXIES=${NEXTCLOUD_DOMAIN}
+            - OVERWRITECLIURL=https://${DOMAIN}/nextcloud
+            - OVERWRITEWEBROOT=/nextcloud
             - POSTGRES_HOST=nextcloud-database
             - POSTGRES_DB=nextcloud
             - POSTGRES_USER=nextcloud
