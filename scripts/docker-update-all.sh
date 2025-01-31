@@ -10,7 +10,7 @@ gitea_files="$services/gitea"
 collabora_files="$services/collabora"
 nextcloud_files="$services/nextcloud"
 
-env_file="../.env"
+env_file="../docker/.env"
 
 docker compose --file "$server_files/docker-compose.yml" --env-file "$env_file" --project-name server pull
 docker compose --file "$monitoring_files/docker-compose.yml" --env-file "$env_file" --project-name monitoring pull
