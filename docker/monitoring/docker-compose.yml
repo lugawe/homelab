@@ -15,15 +15,21 @@ services:
             - traefik_net
         labels:
             - traefik.enable=true
-            - traefik.http.routers.grafana.rule=Host(`${GRAFANA_DOMAIN}`)
+            - traefik.http.routers.grafana.rule=Host(`${DOMAIN}`) && PathPrefix(`/grafana`)
             - traefik.http.routers.grafana.entryPoints=websecure
             - traefik.http.routers.grafana.tls=true
-            - traefik.http.routers.grafana.tls.certResolver=prod
+            - traefik.http.routers.grafana.tls.certResolver=ts
             - traefik.http.middlewares.grafana_headers.headers.forceSTSHeader=true
             - traefik.http.middlewares.grafana_headers.headers.stsIncludeSubdomains=true
             - traefik.http.middlewares.grafana_headers.headers.stsPreload=false
             - traefik.http.middlewares.grafana_headers.headers.stsSeconds=31536000
+            - traefik.http.middlewares.grafana_sp.stripPrefix.prefixes=/grafana
             - traefik.http.routers.grafana.middlewares=authelia@docker,grafana_headers
+            - traefik.http.services.grafana.loadbalancer.server.port=3000
+        environment:
+            - GF_SERVER_DOMAIN=${DOMAIN}
+            - GF_SERVER_ROOT_URL=https://${DOMAIN}/grafana
+            - GF_SERVER_SERVE_FROM_SUB_PATH=true
 
     prometheus:
         image: prom/prometheus:v3.1.0
