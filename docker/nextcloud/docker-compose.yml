@@ -7,7 +7,6 @@ services:
         restart: unless-stopped
         depends_on:
             - nextcloud-database
-            - nextcloud-cache
         volumes:
             - /mnt/c_data/nextcloud/app:/var/www/html
             - /mnt/extern/data:/mnt/extern/data
