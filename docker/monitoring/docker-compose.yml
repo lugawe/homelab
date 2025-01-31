@@ -62,7 +62,7 @@ services:
             - "--path.sysfs=/host/sys"
 
     cadvisor:
-        image: gcr.io/cadvisor/cadvisor:v0.49.1
+        image: gcr.io/cadvisor/cadvisor:v0.49.2
         container_name: cadvisor
         restart: unless-stopped
         volumes:
