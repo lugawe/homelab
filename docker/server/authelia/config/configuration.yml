@@ -16,6 +16,10 @@ access_control:
           resources:
               - "^/grafana([/?].*)?$"
           policy: two_factor
+        - domain: domain
+          resources:
+              - "^/nextcloud([/?].*)?$"
+          policy: bypass
 
 authentication_backend:
     refresh_interval: 5m
