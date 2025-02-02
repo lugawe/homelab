@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-target_dir=/var/cimage
+target_dir=~/.homecloud
 
 image_name=$1
 

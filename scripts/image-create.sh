@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-target_dir=/var/cimage
+target_dir=~/.homecloud
 
 mkdir -p $target_dir
 
@@ -9,6 +9,12 @@ image_name=$1
 
 if [ -z "$image_name" ]; then
     read -p "Enter name: " image_name
+fi
+
+new_size=$2
+
+if [ -z "$new_size" ]; then
+    read -p "Enter size in GB: " new_size
 fi
 
 image_file=$target_dir/$image_name.img
@@ -24,12 +30,6 @@ if [ -d $image_mount_dir ]; then
     exit 1
 else
     sudo mkdir $image_mount_dir
-fi
-
-new_size=$2
-
-if [ -z "$new_size" ]; then
-    read -p "Enter size in GB: " new_size
 fi
 
 dd if=/dev/zero of=$image_file bs=1G count=$new_size status=progress
