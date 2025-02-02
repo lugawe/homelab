@@ -12,11 +12,11 @@ services:
             - /etc/timezone:/etc/timezone:ro
             - /etc/localtime:/etc/localtime:ro
             - /var/run/docker.sock:/var/run/docker.sock:ro
-            - /mnt/c_data/server/traefik/config:/etc/traefik
-            - /mnt/c_data/server/traefik/certificates:/certificates
-            - /mnt/c_data/server/traefik/logs:/var/logs
-            - /mnt/c_data/server/tailscale/data:/var/lib/tailscale:ro
-            - /mnt/c_data/server/tailscale:/var/run/tailscale:ro
+            - /mnt/hc_data/server/traefik/config:/etc/traefik
+            - /mnt/hc_data/server/traefik/certificates:/certificates
+            - /mnt/hc_data/server/traefik/logs:/var/logs
+            - /mnt/hc_data/server/tailscale/data:/var/lib/tailscale:ro
+            - /mnt/hc_data/server/tailscale:/var/run/tailscale:ro
         ports:
             - 80:80
             - 443:443
@@ -55,8 +55,8 @@ services:
             - net_raw
         volumes:
             - /dev/net/tun:/dev/net/tun:ro
-            - /mnt/c_data/server/tailscale/data:/var/lib/tailscale
-            - /mnt/c_data/server/tailscale:/var/run/tailscale
+            - /mnt/hc_data/server/tailscale/data:/var/lib/tailscale
+            - /mnt/hc_data/server/tailscale:/var/run/tailscale
         environment:
             - TS_AUTHKEY=${TAILSCALE_AUTH_KEY}
             - TS_STATE_DIR=/var/lib/tailscale
@@ -70,7 +70,7 @@ services:
         volumes:
             - /etc/timezone:/etc/timezone:ro
             - /etc/localtime:/etc/localtime:ro
-            - /mnt/c_data/server/authelia/config:/config
+            - /mnt/hc_data/server/authelia/config:/config
         networks:
             - traefik_net
         labels:

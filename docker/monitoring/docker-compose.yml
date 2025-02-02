@@ -9,7 +9,7 @@ services:
         depends_on:
             - prometheus
         volumes:
-            - /mnt/c_data/monitoring/grafana/app:/var/lib/grafana
+            - /mnt/hc_data/monitoring/grafana/app:/var/lib/grafana
         networks:
             - monitoring_net
             - traefik_net
@@ -37,8 +37,8 @@ services:
         restart: unless-stopped
         user: 1000:1000
         volumes:
-            - /mnt/c_data/monitoring/prometheus/config:/etc/prometheus
-            - /mnt/c_data/monitoring/prometheus/database:/prometheus
+            - /mnt/hc_data/monitoring/prometheus/config:/etc/prometheus
+            - /mnt/hc_data/monitoring/prometheus/database:/prometheus
         networks:
             - monitoring_net
         command:

@@ -10,7 +10,7 @@ services:
         volumes:
             - /etc/timezone:/etc/timezone:ro
             - /etc/localtime:/etc/localtime:ro
-            - /mnt/c_data/gitea/app:/data
+            - /mnt/hc_data/gitea/app:/data
         networks:
             - gitea_net
             - traefik_net
@@ -40,7 +40,7 @@ services:
         container_name: gitea-database
         restart: unless-stopped
         volumes:
-            - /mnt/c_data/gitea/database:/var/lib/postgresql/data
+            - /mnt/hc_data/gitea/database:/var/lib/postgresql/data
         networks:
             - gitea_net
         environment:

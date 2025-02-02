@@ -7,7 +7,7 @@ services:
         restart: unless-stopped
         user: 1000:1000
         volumes:
-            - /mnt/c_data/vaultwarden/app:/data
+            - /mnt/hc_data/vaultwarden/app:/data
         networks:
             - traefik_net
         labels:

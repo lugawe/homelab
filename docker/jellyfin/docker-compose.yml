@@ -7,8 +7,8 @@ services:
         restart: unless-stopped
         user: 1000:1000
         volumes:
-            - /mnt/c_data/jellyfin/config:/config
-            - /mnt/c_data/jellyfin/cache:/cache
+            - /mnt/hc_data/jellyfin/config:/config
+            - /mnt/hc_data/jellyfin/cache:/cache
             - /mnt/extern/media/movies:/data/movies:ro
             - /mnt/extern/media/shows:/data/shows:ro
             - /mnt/extern/media/videos:/data/videos:ro
