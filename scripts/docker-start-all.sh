@@ -1,6 +1,6 @@
 #!/bin/bash
 
-services=../docker
+services=../services
 
 server_files="$services/server"
 monitoring_files="$services/monitoring"
