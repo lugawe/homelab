@@ -6,8 +6,8 @@ services:
         container_name: traefik
         restart: unless-stopped
         depends_on:
-            - tailscale
             - authelia
+            - tailscale
         volumes:
             - /etc/timezone:/etc/timezone:ro
             - /etc/localtime:/etc/localtime:ro
@@ -44,24 +44,6 @@ services:
         environment:
             - TZ=Europe/Berlin
 
-    tailscale:
-        image: tailscale/tailscale:latest
-        container_name: tailscale
-        restart: unless-stopped
-        hostname: ${TAILSCALE_HOSTNAME}
-        network_mode: host
-        cap_add:
-            - net_admin
-            - net_raw
-        volumes:
-            - /dev/net/tun:/dev/net/tun:ro
-            - /mnt/hc_data/server/tailscale/data:/var/lib/tailscale
-            - /mnt/hc_data/server/tailscale:/var/run/tailscale
-        environment:
-            - TS_AUTHKEY=${TAILSCALE_AUTH_KEY}
-            - TS_STATE_DIR=/var/lib/tailscale
-            - TS_SOCKET=/var/run/tailscale/tailscaled.sock
-
     authelia:
         image: authelia/authelia:latest
         container_name: authelia
@@ -73,6 +55,7 @@ services:
             - /mnt/hc_data/server/authelia/config:/config
         networks:
             - traefik_net
+            - monitoring_net
         labels:
             - traefik.enable=true
             - traefik.http.routers.authelia.rule=Host(`${DOMAIN}`) && PathPrefix(`/auth`)
@@ -93,6 +76,24 @@ services:
             - X_AUTHELIA_CONFIG_FILTERS=template
             - DOMAIN=${DOMAIN}
             - AUTHELIA_SESSION_SECRET=${AUTHELIA_SESSION_SECRET}
+
+    tailscale:
+        image: tailscale/tailscale:latest
+        container_name: tailscale
+        restart: unless-stopped
+        hostname: ${TAILSCALE_HOSTNAME}
+        network_mode: host
+        cap_add:
+            - net_admin
+            - net_raw
+        volumes:
+            - /dev/net/tun:/dev/net/tun:ro
+            - /mnt/hc_data/server/tailscale/data:/var/lib/tailscale
+            - /mnt/hc_data/server/tailscale:/var/run/tailscale
+        environment:
+            - TS_AUTHKEY=${TAILSCALE_AUTH_KEY}
+            - TS_STATE_DIR=/var/lib/tailscale
+            - TS_SOCKET=/var/run/tailscale/tailscaled.sock
 
 networks:
     traefik_net:

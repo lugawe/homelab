@@ -45,9 +45,14 @@ session:
           authelia_url: https://{{ env "DOMAIN" }}/auth
 
 regulation:
-    max_retries: 2
+    max_retries: 3
     find_time: 5m
     ban_time: 24h
+
+telemetry:
+    metrics:
+        enabled: true
+        address: "tcp://:9959/metrics"
 
 totp:
     disable: false
