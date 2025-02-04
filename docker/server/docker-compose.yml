@@ -89,7 +89,10 @@ services:
             - traefik.http.middlewares.authelia_headers.headers.frameDeny=true
             - traefik.http.routers.authelia.middlewares=authelia@docker,authelia_headers
         environment:
-            - TZ=Europe/Berlin
+            - X_AUTHELIA_CONFIG=/config/configuration.yml
+            - X_AUTHELIA_CONFIG_FILTERS=template
+            - DOMAIN=${DOMAIN}
+            - AUTHELIA_SESSION_SECRET=${AUTHELIA_SESSION_SECRET}
 
 networks:
     traefik_net:

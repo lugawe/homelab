@@ -8,15 +8,15 @@ server:
 access_control:
     default_policy: deny
     rules:
-        - domain: domain
+        - domain: {{ env "DOMAIN" }}
           resources:
               - "^/auth([/?].*)?$"
           policy: bypass
-        - domain: domain
+        - domain: {{ env "DOMAIN" }}
           resources:
               - "^/grafana([/?].*)?$"
           policy: two_factor
-        - domain: domain
+        - domain: {{ env "DOMAIN" }}
           resources:
               - "^/nextcloud([/?].*)?$"
           policy: bypass
@@ -37,12 +37,12 @@ authentication_backend:
 
 session:
     name: authelia_session
-    secret: secret
+    secret: {{ env "AUTHELIA_SESSION_SECRET" }}
     expiration: 3600
     inactivity: 300
     cookies:
-        - domain: domain
-          authelia_url: "https://domain/auth"
+        - domain: {{ env "DOMAIN" }}
+          authelia_url: https://{{ env "DOMAIN" }}/auth
 
 regulation:
     max_retries: 2
@@ -51,9 +51,12 @@ regulation:
 
 totp:
     disable: false
-    issuer: domain
+    issuer: {{ env "DOMAIN" }}
 
 webauthn:
+    disable: true
+
+duo_api:
     disable: true
 
 storage:
