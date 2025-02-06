@@ -5,6 +5,11 @@ default_2fa_method: totp
 server:
     address: "tcp://:9091/auth"
 
+telemetry:
+    metrics:
+        enabled: true
+        address: "tcp://:9959/metrics"
+
 access_control:
     default_policy: deny
     rules:
@@ -35,6 +40,11 @@ authentication_backend:
     password_reset:
         disable: true
 
+storage:
+    local:
+        path: /config/db.sqlite3
+    encryption_key: secret
+
 session:
     name: authelia_session
     secret: {{ env "AUTHELIA_SESSION_SECRET" }}
@@ -49,11 +59,6 @@ regulation:
     find_time: 5m
     ban_time: 24h
 
-telemetry:
-    metrics:
-        enabled: true
-        address: "tcp://:9959/metrics"
-
 totp:
     disable: false
     issuer: {{ env "DOMAIN" }}
@@ -63,11 +68,6 @@ webauthn:
 
 duo_api:
     disable: true
-
-storage:
-    local:
-        path: /config/db.sqlite3
-    encryption_key: secret
 
 notifier:
     filesystem:
