@@ -1,0 +1,16 @@
+users:
+    admin:
+        email: admin@localhost
+        displayname: admin
+        password: $argon2id$v=19$m=1024,t=2,p=4$MTIzNDU2Nzg$aFbQn8zMQc7aQDFNGdu8Hg # admin
+        groups:
+            - admin
+            - monitoring
+            - dev
+        disabled: false
+    guest:
+        email: guest@localhost
+        displayname: guest
+        password: $argon2id$v=19$m=1024,t=2,p=4$MTIzNDU2Nzg$L0w3FZmn+kQUgHI8/4kLaA # guest
+        groups: []
+        disabled: false

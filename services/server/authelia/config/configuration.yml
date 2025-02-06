@@ -27,9 +27,8 @@ access_control:
           policy: bypass
 
 authentication_backend:
-    refresh_interval: 5m
     file:
-        path: /config/users_database.yml
+        path: /config/users.yml
         password:
             algorithm: argon2id
             iterations: 2
@@ -37,6 +36,7 @@ authentication_backend:
             parallelism: 4
             key_length: 32
             salt_length: 16
+        watch: true
     password_reset:
         disable: true
 
