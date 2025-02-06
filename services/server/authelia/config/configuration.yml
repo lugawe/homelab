@@ -20,6 +20,9 @@ access_control:
         - domain: {{ env "DOMAIN" }}
           resources:
               - "^/grafana([/?].*)?$"
+          subject:
+              - "group:admin"
+              - "group:monitoring"
           policy: two_factor
         - domain: {{ env "DOMAIN" }}
           resources:
