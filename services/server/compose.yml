@@ -1,4 +1,3 @@
-
 services:
     traefik:
         image: traefik:latest
@@ -63,7 +62,7 @@ services:
             - traefik.http.routers.authelia.tls.certResolver=ts
             - traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/verify?rd=https://${DOMAIN}/auth
             - traefik.http.middlewares.authelia.forwardAuth.trustForwardHeader=true
-            - traefik.http.middlewares.authelia.forwardAuth.authResponseHeaders=Remote-User,Remote-Groups
+            - traefik.http.middlewares.authelia.forwardAuth.authResponseHeaders=Remote-User,Remote-Email,Remote-Groups
             - traefik.http.middlewares.authelia_headers.headers.forceSTSHeader=true
             - traefik.http.middlewares.authelia_headers.headers.stsIncludeSubdomains=true
             - traefik.http.middlewares.authelia_headers.headers.stsPreload=false
