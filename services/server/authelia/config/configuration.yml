@@ -29,6 +29,20 @@ access_control:
               - "^/nextcloud([/?].*)?$"
           policy: bypass
 
+regulation:
+    max_retries: 3
+    find_time: 5m
+    ban_time: 24h
+
+session:
+    name: authelia_session
+    secret: {{ env "AUTHELIA_SESSION_SECRET" }}
+    expiration: 3600
+    inactivity: 300
+    cookies:
+        - domain: {{ env "DOMAIN" }}
+          authelia_url: https://{{ env "DOMAIN" }}/auth
+
 authentication_backend:
     file:
         path: /config/users.yml
@@ -47,20 +61,6 @@ storage:
     local:
         path: /config/db.sqlite3
     encryption_key: secret
-
-session:
-    name: authelia_session
-    secret: {{ env "AUTHELIA_SESSION_SECRET" }}
-    expiration: 3600
-    inactivity: 300
-    cookies:
-        - domain: {{ env "DOMAIN" }}
-          authelia_url: https://{{ env "DOMAIN" }}/auth
-
-regulation:
-    max_retries: 3
-    find_time: 5m
-    ban_time: 24h
 
 totp:
     disable: false
