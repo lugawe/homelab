@@ -1,7 +1,6 @@
-
 services:
     gitea:
-        image: gitea/gitea:1.22
+        image: gitea/gitea:1.23
         container_name: gitea
         restart: unless-stopped
         depends_on:
@@ -15,19 +14,20 @@ services:
             - traefik_net
         labels:
             - traefik.enable=true
-            - traefik.http.routers.gitea.rule=Host(`${GITEA_DOMAIN}`)
+            - traefik.http.routers.gitea.rule=Host(`${DOMAIN}`) && PathPrefix(`/gitea`)
             - traefik.http.routers.gitea.entryPoints=websecure
             - traefik.http.routers.gitea.tls=true
-            - traefik.http.routers.gitea.tls.certResolver=prod
+            - traefik.http.routers.gitea.tls.certResolver=ts
             - traefik.http.middlewares.gitea_headers.headers.forceSTSHeader=true
             - traefik.http.middlewares.gitea_headers.headers.stsIncludeSubdomains=true
             - traefik.http.middlewares.gitea_headers.headers.stsPreload=false
             - traefik.http.middlewares.gitea_headers.headers.stsSeconds=31536000
-            - traefik.http.routers.gitea.middlewares=authelia@docker,gitea_headers
+            - traefik.http.middlewares.gitea_sp.stripPrefix.prefixes=/gitea
+            - traefik.http.routers.gitea.middlewares=authelia@docker,gitea_headers,gitea_sp
             - traefik.http.services.gitea-websecure.loadBalancer.server.port=3000
         environment:
             - PROTOCOL=https
-            - ROOT_URL=https://${GITEA_DOMAIN}
+            - ROOT_URL=https://${DOMAIN}/gitea
             - GITEA__database__DB_TYPE=postgres
             - GITEA__database__HOST=gitea-database
             - GITEA__database__NAME=gitea
