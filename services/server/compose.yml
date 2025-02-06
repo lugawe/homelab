@@ -33,7 +33,7 @@ services:
             - "--entryPoints.ssh.address=:2222"
             - "--certificatesResolvers.prod.acme.storage=/certificates/acme.json"
             - "--certificatesResolvers.prod.acme.tlsChallenge=true"
-            - "--certificatesResolvers.prod.acme.email=${TRAEFIK_ACME_EMAIL}"
+            - "--certificatesResolvers.prod.acme.email=admin@localhost"
             - "--certificatesResolvers.ts.tailscale=true"
             - "--accessLog"
             - "--accessLog.filePath=/var/logs/access.log"
