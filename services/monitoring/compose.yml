@@ -60,18 +60,6 @@ services:
             - "--path.procfs=/host/procfs"
             - "--path.sysfs=/host/sysfs"
 
-    cadvisor:
-        image: gcr.io/cadvisor/cadvisor:v0.49.2
-        container_name: cadvisor
-        restart: unless-stopped
-        volumes:
-            - /:/rootfs:ro
-            - /sys:/sys:ro
-            - /var/run:/var/run:ro
-            - /var/lib/docker/:/var/lib/docker:ro
-        networks:
-            - monitoring_net
-
 networks:
     monitoring_net:
         external: true
