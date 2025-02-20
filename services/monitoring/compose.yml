@@ -31,7 +31,7 @@ services:
             - GF_SERVER_SERVE_FROM_SUB_PATH=true
 
     prometheus:
-        image: prom/prometheus:v3.1.0
+        image: prom/prometheus:v3.2.0
         container_name: prometheus
         restart: unless-stopped
         user: 1000:1000
@@ -46,19 +46,19 @@ services:
             - "--storage.tsdb.retention.time=28d"
 
     prom-node-exporter:
-        image: prom/node-exporter:v1.8.2
+        image: prom/node-exporter:v1.9.0
         container_name: prom-node-exporter
         restart: unless-stopped
         volumes:
             - /:/host/rootfs:ro
-            - /proc:/host/proc:ro
-            - /sys:/host/sys:ro
+            - /proc:/host/procfs:ro
+            - /sys:/host/sysfs:ro
         networks:
             - monitoring_net
         command:
             - "--path.rootfs=/host/rootfs"
-            - "--path.procfs=/host/proc"
-            - "--path.sysfs=/host/sys"
+            - "--path.procfs=/host/procfs"
+            - "--path.sysfs=/host/sysfs"
 
     cadvisor:
         image: gcr.io/cadvisor/cadvisor:v0.49.2
