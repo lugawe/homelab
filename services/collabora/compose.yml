@@ -1,26 +1,25 @@
-
 services:
     collabora:
-        image: collabora/code:24.04.7.2.1
+        image: collabora/code:24.04.12.4.1
         container_name: collabora
         restart: unless-stopped
         networks:
             - traefik_net
         labels:
             - traefik.enable=true
-            - traefik.http.routers.collabora.rule=Host(`${COLLABORA_DOMAIN}`)
+            - traefik.http.routers.collabora.rule=Host(`${DOMAIN}`) && PathPrefix(`/collabora`)
             - traefik.http.routers.collabora.entryPoints=websecure
             - traefik.http.routers.collabora.tls=true
-            - traefik.http.routers.collabora.tls.certResolver=prod
+            - traefik.http.routers.collabora.tls.certResolver=ts
             - traefik.http.middlewares.collabora_headers.headers.forceSTSHeader=true
             - traefik.http.middlewares.collabora_headers.headers.stsIncludeSubdomains=true
             - traefik.http.middlewares.collabora_headers.headers.stsPreload=false
             - traefik.http.middlewares.collabora_headers.headers.stsSeconds=31536000
-            - traefik.http.routers.collabora.middlewares=authelia@docker,collabora_headers
+            - traefik.http.middlewares.collabora_sp.stripPrefix.prefixes=/collabora
+            - traefik.http.routers.collabora.middlewares=authelia@docker,collabora_headers,collabora_sp
         environment:
+            - domain=${DOMAIN}
             - extra_params=--o:ssl.enable=false --o:ssl.termination=true
-            - username=collabora
-            - password=${COLLABORA_PASSWORD}
 
 networks:
     traefik_net:
