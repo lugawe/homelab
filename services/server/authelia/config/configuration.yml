@@ -64,7 +64,7 @@ authentication_backend:
 storage:
     local:
         path: /config/db.sqlite3
-    encryption_key: secret
+    encryption_key: {{ env "AUTHELIA_STORAGE_ENCRYPTION_KEY" }}
 
 totp:
     disable: false
