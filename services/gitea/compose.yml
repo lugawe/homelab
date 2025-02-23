@@ -6,7 +6,7 @@ services:
         depends_on:
             - gitea-database
         volumes:
-            - /mnt/hc_data/gitea/app:/data
+            - /mnt/homecloud/data/gitea/app:/data
         networks:
             - gitea_net
             - traefik_net
@@ -37,7 +37,7 @@ services:
         container_name: gitea-database
         restart: unless-stopped
         volumes:
-            - /mnt/hc_data/gitea/database:/var/lib/postgresql/data
+            - /mnt/homecloud/data/gitea/database:/var/lib/postgresql/data
         networks:
             - gitea_net
         environment:
