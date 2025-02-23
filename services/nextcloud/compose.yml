@@ -25,6 +25,7 @@ services:
             - traefik.http.middlewares.nextcloud_headers.headers.stsSeconds=31536000
             - traefik.http.middlewares.nextcloud_sp.stripPrefix.prefixes=/nextcloud
             - traefik.http.routers.nextcloud.middlewares=authelia@docker,nextcloud_headers,nextcloud_sp
+            - traefik.http.services.nextcloud.loadBalancer.server.port=80
         environment:
             - OVERWRITEPROTOCOL=https
             - OVERWRITECLIURL=https://${DOMAIN}/nextcloud

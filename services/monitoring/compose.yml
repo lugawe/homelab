@@ -23,7 +23,7 @@ services:
             - traefik.http.middlewares.grafana_headers.headers.stsPreload=false
             - traefik.http.middlewares.grafana_headers.headers.stsSeconds=31536000
             - traefik.http.routers.grafana.middlewares=authelia@docker,grafana_headers
-            - traefik.http.services.grafana.loadbalancer.server.port=3000
+            - traefik.http.services.grafana.loadBalancer.server.port=3000
         environment:
             - GF_SERVER_DOMAIN=${DOMAIN}
             - GF_SERVER_ROOT_URL=https://${DOMAIN}/grafana
