@@ -8,10 +8,10 @@ services:
         volumes:
             - /mnt/homecloud/data/jellyfin/config:/config
             - /mnt/homecloud/data/jellyfin/cache:/cache
-            - /mnt/extern/media/movies:/data/movies:ro
-            - /mnt/extern/media/shows:/data/shows:ro
-            - /mnt/extern/media/videos:/data/videos:ro
-            - /mnt/extern/media/other:/data/other:ro
+            - /mnt/homecloud/extern/media/movies:/data/movies:ro
+            - /mnt/homecloud/extern/media/shows:/data/shows:ro
+            - /mnt/homecloud/extern/media/videos:/data/videos:ro
+            - /mnt/homecloud/extern/media/other:/data/other:ro
         devices:
             - /dev/dri:/dev/dri
             - /dev/dri/card0:/dev/dri/card0
