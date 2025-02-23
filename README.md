@@ -20,8 +20,8 @@ mkdir /mnt/homecloud/data
 mkdir /mnt/homecloud/extern
 
 # env file
-cp .env.template .env
-vim .env
+cp services/.env.template services/.env
+vim services/.env
 
 # server
 mkdir /mnt/homecloud/data/server
