@@ -6,8 +6,6 @@ services:
         depends_on:
             - gitea-database
         volumes:
-            - /etc/timezone:/etc/timezone:ro
-            - /etc/localtime:/etc/localtime:ro
             - /mnt/hc_data/gitea/app:/data
         networks:
             - gitea_net
