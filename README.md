@@ -15,7 +15,9 @@ Run the following commands to setup homecloud:
 
 ```bash
 # homecloud
-mkdir /mnt/homecloud
+sudo mkdir /mnt/homecloud
+scripts/permissions.sh /mnt/homecloud
+
 mkdir /mnt/homecloud/data
 mkdir /mnt/homecloud/extern
 
