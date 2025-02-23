@@ -22,7 +22,6 @@ services:
             - traefik.http.middlewares.grafana_headers.headers.stsIncludeSubdomains=true
             - traefik.http.middlewares.grafana_headers.headers.stsPreload=false
             - traefik.http.middlewares.grafana_headers.headers.stsSeconds=31536000
-            - traefik.http.middlewares.grafana_sp.stripPrefix.prefixes=/grafana
             - traefik.http.routers.grafana.middlewares=authelia@docker,grafana_headers
             - traefik.http.services.grafana.loadbalancer.server.port=3000
         environment:
