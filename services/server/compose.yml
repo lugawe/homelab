@@ -31,7 +31,7 @@ services:
             - "--entryPoints.web.http.redirections.entryPoint.scheme=https"
             - "--entryPoints.websecure.address=:443"
             - "--entryPoints.ssh.address=:2222"
-            - "--certificatesResolvers.ts.tailscale=true"
+            - "--certificatesResolvers.ts.tailscale"
             - "--accessLog"
             - "--accessLog.filePath=/var/logs/access.log"
             - "--metrics.prometheus"
