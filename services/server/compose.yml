@@ -4,8 +4,10 @@ services:
         container_name: traefik
         restart: unless-stopped
         depends_on:
-            - authelia
-            - tailscale
+            authelia:
+                condition: service_healthy
+            tailscale:
+                condition: service_started
         volumes:
             - /etc/timezone:/etc/timezone:ro
             - /etc/localtime:/etc/localtime:ro
