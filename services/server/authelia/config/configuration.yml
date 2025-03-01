@@ -28,10 +28,6 @@ access_control:
           resources:
               - "^/nextcloud([/?].*)?$"
           policy: bypass
-        - domain: {{ env "DOMAIN" }}
-          resources:
-              - "^/gitea([/?].*)?$"
-          policy: bypass
 
 regulation:
     max_retries: 3

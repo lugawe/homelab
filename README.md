@@ -56,11 +56,6 @@ mkdir /mnt/homecloud/data/nextcloud
 mkdir /mnt/homecloud/data/nextcloud/app
 mkdir /mnt/homecloud/data/nextcloud/database
 
-# gitea
-mkdir /mnt/homecloud/data/gitea
-mkdir /mnt/homecloud/data/gitea/app
-mkdir /mnt/homecloud/data/gitea/database
-
 # finish
 scripts/permissions.sh /mnt/homecloud
 
