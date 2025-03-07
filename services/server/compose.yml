@@ -54,7 +54,7 @@ services:
             - monitoring_net
         labels:
             - traefik.enable=true
-            - traefik.http.routers.authelia.rule=Host(`${DOMAIN}`) && PathPrefix(`/auth`)
+            - traefik.http.routers.authelia.rule=Host(`${DOMAIN}`) && PathRegexp(`^/auth([/?].*)?$`)
             - traefik.http.routers.authelia.entryPoints=websecure
             - traefik.http.routers.authelia.tls=true
             - traefik.http.routers.authelia.tls.certResolver=ts
