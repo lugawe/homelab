@@ -1,4 +1,3 @@
-
 services:
     grafana:
         image: grafana/grafana:latest
@@ -42,7 +41,7 @@ services:
         command:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus"
-            - "--storage.tsdb.retention.time=28d"
+            - "--storage.tsdb.retention.time=56d"
 
     prometheus-node-exporter:
         image: prom/node-exporter:v1.9.0
@@ -58,6 +57,10 @@ services:
             - "--path.rootfs=/host/rootfs"
             - "--path.procfs=/host/procfs"
             - "--path.sysfs=/host/sysfs"
+            - "--collector.ksmd"
+            - "--collector.processes"
+            - "--collector.systemd"
+            - "--collector.wifi"
 
 networks:
     monitoring_net:
