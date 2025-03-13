@@ -28,6 +28,10 @@ access_control:
           resources:
               - "^/nextcloud([/?].*)?$"
           policy: bypass
+        - domain: {{ env "DOMAIN" }}
+          resources:
+              - "^/code([/?].*)?$"
+          policy: two_factor
 
 regulation:
     max_retries: 3
