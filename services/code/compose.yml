@@ -1,0 +1,28 @@
+services:
+    code:
+        build:
+            context: .
+        container_name: code
+        restart: unless-stopped
+        user: 1000:1000
+        volumes:
+            - /mnt/homecloud/data/code/workspace:/home/coder/workspace
+        networks:
+            - traefik_net
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.code.rule=Host(`${DOMAIN}`) && PathRegexp(`^/code([/?].*)?$`)
+            - traefik.http.routers.code.entryPoints=websecure
+            - traefik.http.routers.code.tls=true
+            - traefik.http.routers.code.tls.certResolver=ts
+            - traefik.http.middlewares.code_headers.headers.forceSTSHeader=true
+            - traefik.http.middlewares.code_headers.headers.stsIncludeSubdomains=true
+            - traefik.http.middlewares.code_headers.headers.stsPreload=false
+            - traefik.http.middlewares.code_headers.headers.stsSeconds=31536000
+            - traefik.http.middlewares.code_sp.stripPrefix.prefixes=/nextcloud
+            - traefik.http.routers.code.middlewares=authelia@docker,code_sp,code_headers
+            - traefik.http.services.code.loadBalancer.server.port=8080
+
+networks:
+    traefik_net:
+        external: true
