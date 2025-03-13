@@ -24,6 +24,35 @@ services:
             - traefik.http.routers.code.middlewares=authelia@docker,code_headers,code_sp
             - traefik.http.services.code.loadBalancer.server.port=8080
 
+    code-pgadmin4:
+        image: dpage/pgadmin4:9.1
+        container_name: code-pgadmin4
+        restart: unless-stopped
+        depends_on:
+            - code-db1
+            - code-db2
+        volumes:
+            - /mnt/homecloud/data/code/pgadmin4:/var/lib/pgadmin
+        networks:
+            - code_net
+            - traefik_net
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.code_pgadmin.rule=Host(`${DOMAIN}`) && PathRegexp(`^/code/pgadmin([/?].*)?$`)
+            - traefik.http.routers.code_pgadmin.entryPoints=websecure
+            - traefik.http.routers.code_pgadmin.tls=true
+            - traefik.http.routers.code_pgadmin.tls.certResolver=ts
+            - traefik.http.middlewares.code_pgadmin_headers.headers.forceSTSHeader=true
+            - traefik.http.middlewares.code_pgadmin_headers.headers.stsIncludeSubdomains=true
+            - traefik.http.middlewares.code_pgadmin_headers.headers.stsPreload=false
+            - traefik.http.middlewares.code_pgadmin_headers.headers.stsSeconds=31536000
+            - traefik.http.middlewares.code_pgadmin_sp.stripPrefix.prefixes=/code/pgadmin
+            - traefik.http.routers.code_pgadmin.middlewares=authelia@docker,code_pgadmin_headers,code_pgadmin_sp
+            - traefik.http.services.code_pgadmin.loadBalancer.server.port=80
+        environment:
+            - PGADMIN_DEFAULT_EMAIL=coder@example.com
+            - PGADMIN_DEFAULT_PASSWORD=coder
+
     code-db1:
         image: postgres:16-alpine
         container_name: code-db1
