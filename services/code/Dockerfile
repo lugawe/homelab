@@ -4,7 +4,7 @@ USER root
 
 WORKDIR /home/coder
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y bash git less build-essential zip unzip vim python3 python3-pip
+RUN apt-get update && apt-get upgrade -y && apt-get install -y bash git less build-essential tmux zip unzip vim python3
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY config/settings.json /home/coder/.local/share/code-server/User/settings.json
