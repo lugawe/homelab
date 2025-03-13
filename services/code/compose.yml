@@ -46,10 +46,10 @@ services:
             - traefik.http.middlewares.code_pgadmin_headers.headers.stsIncludeSubdomains=true
             - traefik.http.middlewares.code_pgadmin_headers.headers.stsPreload=false
             - traefik.http.middlewares.code_pgadmin_headers.headers.stsSeconds=31536000
-            - traefik.http.middlewares.code_pgadmin_sp.stripPrefix.prefixes=/code/pgadmin
-            - traefik.http.routers.code_pgadmin.middlewares=authelia@docker,code_pgadmin_headers,code_pgadmin_sp
+            - traefik.http.routers.code_pgadmin.middlewares=authelia@docker,code_pgadmin_headers
             - traefik.http.services.code_pgadmin.loadBalancer.server.port=80
         environment:
+            - SCRIPT_NAME=/code/pgadmin
             - PGADMIN_DEFAULT_EMAIL=coder@example.com
             - PGADMIN_DEFAULT_PASSWORD=coder
 
