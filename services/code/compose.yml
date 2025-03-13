@@ -8,6 +8,7 @@ services:
         volumes:
             - /mnt/homecloud/data/code/workspace:/home/coder/workspace
         networks:
+            - code_net
             - traefik_net
         labels:
             - traefik.enable=true
@@ -23,6 +24,35 @@ services:
             - traefik.http.routers.code.middlewares=authelia@docker,code_headers,code_sp
             - traefik.http.services.code.loadBalancer.server.port=8080
 
+    code-db1:
+        image: postgres:16-alpine
+        container_name: code-db1
+        restart: unless-stopped
+        volumes:
+            - /mnt/homecloud/data/code/db1:/var/lib/postgresql/data
+        networks:
+            - code_net
+        environment:
+            - POSTGRES_DB=db1
+            - POSTGRES_USER=db1
+            - POSTGRES_PASSWORD=db1
+
+    code-db2:
+        image: postgres:16-alpine
+        container_name: code-db2
+        restart: unless-stopped
+        volumes:
+            - /mnt/homecloud/data/code/db2:/var/lib/postgresql/data
+        networks:
+            - code_net
+        environment:
+            - POSTGRES_DB=db2
+            - POSTGRES_USER=db2
+            - POSTGRES_PASSWORD=db2
+
 networks:
+    code_net:
+        name: code_net
+        external: false
     traefik_net:
         external: true
