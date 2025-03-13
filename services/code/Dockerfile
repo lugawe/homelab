@@ -13,8 +13,6 @@ RUN chown -R coder:coder /home/coder
 
 USER coder
 
-ENV BASE_URL=/code
-
 ENV DEFAULT_WORKSPACE="/home/coder/workspace"
 
 RUN mkdir -p ${DEFAULT_WORKSPACE}
