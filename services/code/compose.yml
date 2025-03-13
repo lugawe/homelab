@@ -19,8 +19,8 @@ services:
             - traefik.http.middlewares.code_headers.headers.stsIncludeSubdomains=true
             - traefik.http.middlewares.code_headers.headers.stsPreload=false
             - traefik.http.middlewares.code_headers.headers.stsSeconds=31536000
-            - traefik.http.middlewares.code_sp.stripPrefix.prefixes=/nextcloud
-            - traefik.http.routers.code.middlewares=authelia@docker,code_sp,code_headers
+            - traefik.http.middlewares.code_sp.stripPrefix.prefixes=/code
+            - traefik.http.routers.code.middlewares=authelia@docker,code_headers,code_sp
             - traefik.http.services.code.loadBalancer.server.port=8080
 
 networks:
