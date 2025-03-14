@@ -4,6 +4,7 @@ services:
             context: .
         container_name: code
         restart: unless-stopped
+        hostname: code
         user: 1000:1000
         volumes:
             - /mnt/homecloud/data/code/workspace:/home/coder/workspace
