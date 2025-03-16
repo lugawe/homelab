@@ -7,7 +7,7 @@ services:
         hostname: code
         user: 1000:1000
         volumes:
-            - /mnt/homecloud/data/code/workspace:/home/coder/workspace
+            - /mnt/homecloud/data/code/coder/workspace:/home/coder/workspace
         networks:
             - code_net
             - traefik_net
