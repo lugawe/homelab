@@ -8,6 +8,8 @@ services:
         user: 1000:1000
         volumes:
             - /mnt/homecloud/data/code/coder/workspace:/home/coder/workspace
+            - /mnt/homecloud/data/code/coder/.bash_history:/home/coder/.bash_history
+            - /mnt/homecloud/data/code/coder/.gitconfig:/home/coder/.gitconfig
         networks:
             - code_net
             - traefik_net

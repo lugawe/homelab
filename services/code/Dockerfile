@@ -17,15 +17,17 @@ RUN chown -R coder:coder /home/coder
 
 USER coder
 
+RUN echo "# general" >> ~/.bashrc
+RUN echo 'alias l="ls -l"' >> ~/.bashrc
+RUN echo 'alias la="ls -la"' >> ~/.bashrc
+RUN echo '' >> ~/.bashrc
+
 RUN echo "# java" >> ~/.bashrc
 RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto' >> ~/.bashrc
 RUN echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc
+RUN echo '' >> ~/.bashrc
 
 RUN curl -fsSL https://bun.sh/install | bash
-
-ENV DEFAULT_WORKSPACE="/home/coder/workspace"
-
-RUN mkdir -p ${DEFAULT_WORKSPACE}
 
 EXPOSE 8080
 
