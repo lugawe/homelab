@@ -9,7 +9,7 @@ services:
         volumes:
             - /mnt/homecloud/data/code/coder/workspace:/home/coder/workspace
             - /mnt/homecloud/data/code/coder/.bash_history:/home/coder/.bash_history
-            - /mnt/homecloud/data/code/coder/.gitconfig:/home/coder/.gitconfig
+            - /mnt/homecloud/data/code/coder/.bash_aliases:/home/coder/.bash_aliases
         networks:
             - code_net
             - traefik_net
