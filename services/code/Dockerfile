@@ -5,7 +5,10 @@ USER root
 WORKDIR /home/coder
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-    bash fish git less build-essential tmux zip unzip vim python3 python3-dev python3-venv python3-numpy
+    bash fish git less build-essential tmux zip unzip vim python3 python3-dev python3-postgresql python3-numpy
+
+RUN curl -fsSL https://get.docker.com | bash
+RUN usermod -aG docker coder
 
 RUN mkdir -p /usr/lib/jvm/java-21-amazon-corretto && wget -qO- https://corretto.aws/downloads/latest/amazon-corretto-21-aarch64-linux-jdk.tar.gz | tar xz --strip-components=1 -C /usr/lib/jvm/java-21-amazon-corretto
 
