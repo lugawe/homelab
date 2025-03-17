@@ -8,7 +8,7 @@ services:
             - nextcloud-cache
         volumes:
             - /mnt/homecloud/data/nextcloud/app:/var/www/html
-            - /mnt/homecloud/data/code/workspace:/mnt/homecloud/data/code/workspace:ro
+            - /mnt/homecloud/data/code/coder/workspace:/mnt/homecloud/data/code/coder/workspace
             - /mnt/homecloud/extern:/mnt/homecloud/extern:ro
         networks:
             - nextcloud_net
