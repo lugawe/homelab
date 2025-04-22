@@ -1,6 +1,6 @@
 services:
     grafana:
-        image: grafana/grafana:latest
+        image: grafana/grafana:11.6.0
         container_name: grafana
         restart: unless-stopped
         user: 1000:1000
@@ -29,7 +29,7 @@ services:
             - GF_SERVER_SERVE_FROM_SUB_PATH=true
 
     prometheus:
-        image: prom/prometheus:v3.2.0
+        image: prom/prometheus:v3.3.0
         container_name: prometheus
         restart: unless-stopped
         user: 1000:1000
@@ -44,7 +44,7 @@ services:
             - "--storage.tsdb.retention.time=56d"
 
     prometheus-node-exporter:
-        image: prom/node-exporter:v1.9.0
+        image: prom/node-exporter:v1.9.1
         container_name: prometheus-node-exporter
         restart: unless-stopped
         volumes:
@@ -57,10 +57,7 @@ services:
             - "--path.rootfs=/host/rootfs"
             - "--path.procfs=/host/procfs"
             - "--path.sysfs=/host/sysfs"
-            - "--collector.ksmd"
             - "--collector.processes"
-            - "--collector.systemd"
-            - "--collector.wifi"
 
 networks:
     monitoring_net:
