@@ -27,6 +27,9 @@ RUN echo '' >> ~/.bashrc
 
 RUN curl -fsSL https://bun.sh/install | bash
 
+RUN ["code-server", "--install-extension", "ms-python.python"]
+RUN ["code-server", "--install-extension", "ms-toolsai.jupyter"]
+
 EXPOSE 8080
 
 CMD ["code-server", "--bind-addr", "0.0.0.0:8080", "--auth", "none", "/home/coder/workspace"]
