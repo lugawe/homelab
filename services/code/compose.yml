@@ -28,7 +28,7 @@ services:
             - traefik.http.services.code.loadBalancer.server.port=8080
 
     code-pgadmin4:
-        image: dpage/pgadmin4:9.4
+        image: dpage/pgadmin4:9.5
         container_name: code-pgadmin4
         restart: unless-stopped
         depends_on:
