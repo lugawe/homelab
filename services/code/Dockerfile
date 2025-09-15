@@ -1,4 +1,4 @@
-FROM codercom/code-server:4.103.1
+FROM codercom/code-server:4.103.2
 
 USER root
 
@@ -20,9 +20,13 @@ RUN chown -R coder:coder /home/coder
 
 USER coder
 
+RUN echo "# utility" >> ~/.bashrc
+RUN echo '[ -f "$HOME/.bash_run" ] && source "$HOME/.bash_run"' >> ~/.bashrc
+
 RUN echo "# java" >> ~/.bashrc
 RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto' >> ~/.bashrc
 RUN echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc
+
 RUN echo '' >> ~/.bashrc
 
 RUN curl -fsSL https://bun.sh/install | bash
