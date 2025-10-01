@@ -61,7 +61,7 @@ services:
         container_name: code-db1
         restart: unless-stopped
         volumes:
-            - /mnt/homecloud/data/code/db1:/var/lib/postgresql/data
+            - /mnt/homecloud/data/code/db1:/var/lib/postgresql
         networks:
             - code_net
         environment:
@@ -74,7 +74,7 @@ services:
         container_name: code-db2
         restart: unless-stopped
         volumes:
-            - /mnt/homecloud/data/code/db2:/var/lib/postgresql/data
+            - /mnt/homecloud/data/code/db2:/var/lib/postgresql
         networks:
             - code_net
         environment:
