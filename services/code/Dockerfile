@@ -1,4 +1,4 @@
-FROM codercom/code-server:4.103.2
+FROM codercom/code-server:4.104.2
 
 USER root
 
@@ -8,9 +8,9 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     bash bash-completion fish git less build-essential tmux zip unzip vim \
     python3 python3-dev python3-postgresql python3-numpy python3-scipy python3-sympy python3-matplotlib python3-ipykernel
 
-RUN mkdir -p /usr/lib/jvm/java-21-amazon-corretto && \
-    wget -qO- https://corretto.aws/downloads/latest/amazon-corretto-21-aarch64-linux-jdk.tar.gz | \
-    tar xz --strip-components=1 -C /usr/lib/jvm/java-21-amazon-corretto
+RUN mkdir -p /usr/lib/jvm/java-25-amazon-corretto && \
+    wget -qO- https://corretto.aws/downloads/latest/amazon-corretto-25-aarch64-linux-jdk.tar.gz | \
+    tar xz --strip-components=1 -C /usr/lib/jvm/java-25-amazon-corretto
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -24,7 +24,7 @@ RUN echo "# utility" >> ~/.bashrc
 RUN echo '[ -f "$HOME/.bash_run" ] && source "$HOME/.bash_run"' >> ~/.bashrc
 
 RUN echo "# java" >> ~/.bashrc
-RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto' >> ~/.bashrc
+RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-25-amazon-corretto' >> ~/.bashrc
 RUN echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc
 
 RUN echo '' >> ~/.bashrc
