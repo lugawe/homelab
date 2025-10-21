@@ -1,4 +1,4 @@
-FROM codercom/code-server:4.104.2
+FROM codercom/code-server:4.105.1
 
 USER root
 
@@ -6,7 +6,8 @@ WORKDIR /home/coder
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     bash bash-completion fish git less build-essential tmux zip unzip vim \
-    python3 python3-dev python3-postgresql python3-numpy python3-scipy python3-sympy python3-matplotlib python3-ipykernel
+    python3 python3-dev python3-postgresql python3-numpy python3-scipy python3-sympy
+    python3-pandas python3-matplotlib python3-ipykernel
 
 RUN mkdir -p /usr/lib/jvm/java-25-amazon-corretto && \
     wget -qO- https://corretto.aws/downloads/latest/amazon-corretto-25-aarch64-linux-jdk.tar.gz | \
