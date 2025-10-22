@@ -1,0 +1,35 @@
+services:
+    jellyfin:
+        image: jellyfin/jellyfin:latest
+        container_name: jellyfin
+        restart: unless-stopped
+        volumes:
+            - /mnt/homecloud/data/jellyfin/config:/config
+            - /mnt/homecloud/data/jellyfin/cache:/cache
+            - /mnt/homecloud/extern/media/movies:/mnt/movies:ro
+            - /mnt/homecloud/extern/media/series:/mnt/series:ro
+            - /mnt/homecloud/extern/media/videos:/mnt/videos:ro
+            - /mnt/homecloud/extern/media/other:/mnt/other:ro
+        networks:
+            - jellyfin_net
+            - traefik_net
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.jellyfin.rule=Host(`${DOMAIN}`) && PathRegexp(`^/jellyfin([/?].*)?$`)
+            - traefik.http.routers.jellyfin.entryPoints=websecure
+            - traefik.http.routers.jellyfin.tls=true
+            - traefik.http.routers.jellyfin.tls.certResolver=ts
+            - traefik.http.middlewares.jellyfin_headers.headers.forceSTSHeader=true
+            - traefik.http.middlewares.jellyfin_headers.headers.stsIncludeSubdomains=true
+            - traefik.http.middlewares.jellyfin_headers.headers.stsPreload=false
+            - traefik.http.middlewares.jellyfin_headers.headers.stsSeconds=31536000
+            - traefik.http.middlewares.jellyfin_sp.stripPrefix.prefixes=/jellyfin
+            - traefik.http.routers.jellyfin.middlewares=authelia@docker,jellyfin_headers,jellyfin_sp
+            - traefik.http.services.jellyfin.loadBalancer.server.port=8096
+
+networks:
+    jellyfin_net:
+        name: jellyfin_net
+        external: false
+    traefik_net:
+        external: true

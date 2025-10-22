@@ -30,6 +30,10 @@ access_control:
           policy: bypass
         - domain: {{ env "DOMAIN" }}
           resources:
+              - "^/jellyfin([/?].*)?$"
+          policy: two_factor
+        - domain: {{ env "DOMAIN" }}
+          resources:
               - "^/code([/?].*)?$"
           policy: two_factor
         - domain: {{ env "DOMAIN" }}
