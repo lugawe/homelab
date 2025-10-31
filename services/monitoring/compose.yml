@@ -44,7 +44,7 @@ services:
             - "--storage.tsdb.retention.time=56d"
 
     prometheus-node-exporter:
-        image: prom/node-exporter:v1.9.1
+        image: prom/node-exporter:v1.10.2
         container_name: prometheus-node-exporter
         restart: unless-stopped
         volumes:
