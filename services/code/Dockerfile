@@ -1,4 +1,4 @@
-FROM codercom/code-server:4.108.1
+FROM codercom/code-server:4.105.1
 
 USER root
 
@@ -35,6 +35,7 @@ RUN echo '' >> ~/.bashrc
 
 RUN ["code-server", "--install-extension", "ms-python.python"]
 RUN ["code-server", "--install-extension", "ms-toolsai.jupyter"]
+RUN ["code-server", "--install-extension", "myriad-dreamin.tinymist"]
 
 EXPOSE 8080
 
