@@ -1,12 +1,14 @@
-# base/nextcloud-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: nextcloud
+  namespace: nextcloud
+  name: app-service
+  labels:
+    app: app
 spec:
   selector:
-    app: nextcloud
+    app: app
+  type: ClusterIP
   ports:
     - port: 80
       targetPort: 80
-  type: ClusterIP

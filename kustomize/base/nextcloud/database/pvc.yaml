@@ -1,7 +1,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-pvc
+  namespace: nextcloud
+  name: database-pvc
+  labels:
+    app: database
 spec:
   accessModes:
     - ReadWriteOnce
