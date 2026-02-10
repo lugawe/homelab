@@ -1,9 +1,0 @@
-kind: Kustomization
-
-namespace: nextcloud
-
-resources:
-  - namespace.yaml
-  - secrets.yaml
-  - database
-  - app

@@ -1,0 +1,17 @@
+apiVersion: v1
+
+kind: Service
+
+metadata:
+  namespace: opencloud
+  name: opencloud-app-service
+  labels:
+    app: opencloud
+
+spec:
+  selector:
+    app: opencloud
+  type: ClusterIP
+  ports:
+    - port: 9200
+      targetPort: 9200

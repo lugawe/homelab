@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  namespace: opencloud
+  name: opencloud-app-deployment
+  labels:
+    app: opencloud
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opencloud
+  template:
+    metadata:
+      labels:
+        app: opencloud
+    spec:
+      containers:
+        - name: opencloud
+          image: opencloudeu/opencloud-rolling:latest
+          command: ["/bin/sh"]
+          args: ["-c", "opencloud init || true; opencloud server"]
+          ports:
+            - containerPort: 9200
+          envFrom:
+            - configMapRef:
+                name: opencloud-config
+            - secretRef:
+                name: opencloud-secrets
+          volumeMounts:
+            - name: opencloud-storage
+              mountPath: /etc/opencloud
+              subPath: config
+            - name: opencloud-storage
+              mountPath: /var/lib/opencloud
+              subPath: data
+      volumes:
+        - name: opencloud-storage
+          persistentVolumeClaim:
+            claimName: opencloud-app-pvc
