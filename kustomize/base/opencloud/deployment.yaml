@@ -23,8 +23,6 @@ spec:
           image: opencloudeu/opencloud-rolling:latest
           command: ["/bin/sh"]
           args: ["-c", "opencloud init || true; opencloud server"]
-          ports:
-            - containerPort: 9200
           envFrom:
             - configMapRef:
                 name: opencloud-config
