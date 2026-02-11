@@ -14,7 +14,7 @@ spec:
     service:
       name: opencloud-app-service
       port:
-        number: 9200
+        number: 443
   tls:
     - hosts:
         - opencloud
