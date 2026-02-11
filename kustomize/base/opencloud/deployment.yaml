@@ -24,8 +24,6 @@ spec:
           command: ["/bin/sh"]
           args: ["-c", "opencloud init || true; opencloud server"]
           envFrom:
-            - configMapRef:
-                name: opencloud-config
             - secretRef:
                 name: opencloud-secrets
           volumeMounts:
