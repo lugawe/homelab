@@ -4,6 +4,11 @@ kind: Kustomization
 
 resources:
   - ../../secrets
+  # ---
   - ../../base/tailscale-operator
+  # ---
   - ../../base/opencloud
   - opencloud
+  # ---
+  - ../../base/jellyfin
+  - jellyfin
