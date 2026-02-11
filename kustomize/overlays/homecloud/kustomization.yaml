@@ -12,3 +12,6 @@ resources:
   # ---
   - ../../base/jellyfin
   - jellyfin
+  # ---
+  - ../../base/vaultwarden
+  - vaultwarden
