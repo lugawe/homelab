@@ -4,5 +4,6 @@ kind: Kustomization
 
 resources:
   - ../../secrets
+  - ../../base/tailscale-operator
   - ../../base/opencloud
-  - ingress.yaml
+  - opencloud
