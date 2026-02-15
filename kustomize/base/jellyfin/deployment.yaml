@@ -6,17 +6,17 @@ metadata:
   namespace: jellyfin
   name: jellyfin-app-deployment
   labels:
-    app: jellyfin
+    app: jellyfin-app
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: jellyfin
+      app: jellyfin-app
   template:
     metadata:
       labels:
-        app: jellyfin
+        app: jellyfin-app
     spec:
       containers:
         - name: jellyfin

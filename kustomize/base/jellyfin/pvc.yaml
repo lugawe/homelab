@@ -6,7 +6,7 @@ metadata:
   namespace: jellyfin
   name: jellyfin-app-pvc
   labels:
-    app: jellyfin
+    app: jellyfin-app
 
 spec:
   accessModes:

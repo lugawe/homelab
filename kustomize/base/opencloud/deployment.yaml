@@ -6,17 +6,17 @@ metadata:
   namespace: opencloud
   name: opencloud-app-deployment
   labels:
-    app: opencloud
+    app: opencloud-app
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: opencloud
+      app: opencloud-app
   template:
     metadata:
       labels:
-        app: opencloud
+        app: opencloud-app
     spec:
       containers:
         - name: opencloud

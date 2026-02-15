@@ -6,17 +6,17 @@ metadata:
   namespace: vaultwarden
   name: vaultwarden-app-deployment
   labels:
-    app: vaultwarden
+    app: vaultwarden-app
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: vaultwarden
+      app: vaultwarden-app
   template:
     metadata:
       labels:
-        app: vaultwarden
+        app: vaultwarden-app
     spec:
       containers:
         - name: vaultwarden

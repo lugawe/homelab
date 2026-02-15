@@ -6,7 +6,7 @@ metadata:
   namespace: vaultwarden
   name: vaultwarden-app-pvc
   labels:
-    app: vaultwarden
+    app: vaultwarden-app
 
 spec:
   accessModes:
