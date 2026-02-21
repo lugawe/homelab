@@ -9,6 +9,9 @@ resources:
   # ---
   - argocd
   # ---
+  - ../../base/keycloak
+  - keycloak
+  # ---
   - ../../base/opencloud
   - opencloud
   # ---
