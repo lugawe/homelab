@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: opencloud
-          image: opencloudeu/opencloud-rolling:latest
+          image: opencloudeu/opencloud-rolling:5.2.0
           command: ["/bin/sh"]
           args: ["-c", "opencloud init || true; opencloud server"]
           envFrom:
