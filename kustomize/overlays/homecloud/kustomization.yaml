@@ -9,16 +9,12 @@ resources:
   # ---
   - argocd
   # ---
-  - ../../base/keycloak
   - keycloak
   # ---
-  - ../../base/opencloud
   - opencloud
   # ---
-  - ../../base/jellyfin
   - jellyfin
   # ---
-  - ../../base/vaultwarden
   - vaultwarden
   # ---
   - grafana
