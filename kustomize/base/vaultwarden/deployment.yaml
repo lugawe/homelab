@@ -18,9 +18,18 @@ spec:
       labels:
         app: vaultwarden-app
     spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: vaultwarden-app
           image: vaultwarden/server:latest
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
           envFrom:
             - secretRef:
                 name: vaultwarden-secrets
