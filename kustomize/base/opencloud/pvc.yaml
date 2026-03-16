@@ -9,9 +9,9 @@ metadata:
     app: opencloud-app
 
 spec:
+  storageClassName: local-path
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  storageClassName: local-path
