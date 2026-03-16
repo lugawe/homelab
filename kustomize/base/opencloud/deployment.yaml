@@ -19,7 +19,7 @@ spec:
         app: opencloud-app
     spec:
       containers:
-        - name: opencloud
+        - name: opencloud-app
           image: opencloudeu/opencloud-rolling:5.2.0
           command: ["/bin/sh"]
           args: ["-c", "opencloud init || true; opencloud server"]

@@ -19,7 +19,7 @@ spec:
         app: jellyfin-app
     spec:
       containers:
-        - name: jellyfin
+        - name: jellyfin-app
           image: jellyfin/jellyfin:latest
           volumeMounts:
             - name: jellyfin-storage

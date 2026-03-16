@@ -19,7 +19,7 @@ spec:
         app: vaultwarden-app
     spec:
       containers:
-        - name: vaultwarden
+        - name: vaultwarden-app
           image: vaultwarden/server:latest
           envFrom:
             - secretRef:
