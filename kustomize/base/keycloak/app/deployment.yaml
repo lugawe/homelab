@@ -18,9 +18,21 @@ spec:
       labels:
         app: keycloak-app
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: keycloak-app
           image: keycloak/keycloak:26.5
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
           args: ["start"]
           envFrom:
             - secretRef:
